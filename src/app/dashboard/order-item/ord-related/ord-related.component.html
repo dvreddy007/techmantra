@@ -1,0 +1,73 @@
+
+<div class="container" style="">
+    
+    <div class="panel-group">
+      <div class="panel panel-default">
+        <div class="panel-heading" style=" height: 40px;">
+          <h4 class="panel-title" style="padding-top:13px;" > 
+            <a data-toggle="collapse" href="#collapse1" style="font-size:medium;" >Order Products </a>
+            <div style="margin-left: 230px; float:right" >
+            <button mat-stroked-button color="primary" style="height: 32px;">Add Products</button>&nbsp;
+            <button mat-stroked-button color="primary" style="height: 32px;"> Eddit Products</button>
+              </div>
+          </h4>
+        </div>
+        <hr>
+        <div id="collapse1" class="panel-collapse collapse">
+          <div class="panel-body" style="padding-bottom: 15px;">
+
+            <mat-card>
+              {{errorMessage}}
+              <!-- <span style="color:blue"><h4><i class="material-icons">dashboard</i>The order items of order {{ordernumber}}</h4></span> -->
+              <!-- New part: this is the search box -->
+              <!-- <mat-input-container>
+                <input matInput placeholder="Search orders items" #orderiteminput style="border-bottom:1px solid blueviolet; margin-bottom :2rem;">
+              </mat-input-container> -->
+              
+              <div class="spinner-container" *ngIf="dataSource.orderitemloading$ | async">
+                <mat-spinner></mat-spinner>
+              </div>
+              
+              <mat-table class="orders-table mat-elevation-z8" [dataSource]="dataSource"
+                       matSort matSortActive="ordernumber" matSortDirection="asc" matSortDisableClear>
+              
+                <!-- <ng-container matColumnDef="ordersitemsid">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Order Item Id</mat-header-cell>
+                    <mat-cell *matCellDef="let orderitem">{{orderitem.ordersitemsid}}</mat-cell>
+                </ng-container> -->
+              
+                <ng-container matColumnDef="productname">
+                    <mat-header-cell *matHeaderCellDef>Product Name</mat-header-cell>
+                    <mat-cell class="description-cell"
+                              *matCellDef="let orderitem">{{orderitem.productname}}</mat-cell>
+                </ng-container>
+              
+                <ng-container matColumnDef="quantity">
+                    <mat-header-cell *matHeaderCellDef>Quantity</mat-header-cell>
+                    <mat-cell class="duration-cell"
+                              *matCellDef="let orderitem">{{orderitem.quantity}}</mat-cell>
+                </ng-container>
+            
+                <ng-container matColumnDef="unitprice">
+                  <mat-header-cell *matHeaderCellDef  mat-sort-header>Unit Price</mat-header-cell>
+                  <mat-cell class="duration-cell"
+                            *matCellDef="let orderitem">{{orderitem.unitprice  |  currency:'USD' }}</mat-cell>
+              </ng-container>
+              
+              <ng-container matColumnDef="totalprice">
+                    <mat-header-cell *matHeaderCellDef  mat-sort-header>Total Price</mat-header-cell>
+                    <mat-cell class="duration-cell"
+                              *matCellDef="let orderitem">{{orderitem.totalprice  |  currency:'USD'}}</mat-cell>
+                </ng-container>              
+              
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+              
+              </mat-table>  
+              <mat-paginator [pageSizeOptions]="[5, 10, 20, 50, 100, 150]" [pageSize]="5" [length]="20" showFirstLastButtons></mat-paginator>
+              </mat-card>
+      </div>
+    </div>
+  </div>
+  
+

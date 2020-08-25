@@ -1,0 +1,28 @@
+.form {
+  /* min-width: 150px;
+  max-width: 500px;
+  width: 100%; */
+  background-color: white;
+  border-radius: 10px;
+  padding-left: 40px;
+  padding-top: 30px;
+}
+.custom-date-class {
+  background: orange;
+  border-radius: 100%;
+}
+.full-width {
+  width: 43%;
+}
+mat-form-field{
+  margin: -0.5rem 1rem;
+}
+.mat-tab{
+  border-radius: 7px;
+  background-color: #d9e1e9;
+  
+}
+.active{
+  background-color: rgb(178, 181, 199);
+  border-radius: 5px;
+}

@@ -1,0 +1,66 @@
+<mat-toolbar>
+  <span style="font-size: 18px;">New Profile</span>
+  <span class="fill-remaining-space"></span>
+  <button class="btn dialog-close" mat-stroked-button (click)="onClose()" tabindex="-1">
+    <mat-icon>clear</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-horizontal-stepper labelPosition="bottom" [linear]="isLinear" #stepper>
+  <mat-step [stepControl]="profileForm">
+    <form [formGroup]="profileForm" class="normal-form">
+      <ng-template matStepLabel>Fill profile name and description</ng-template>
+      <div class="controles-container form-group">
+        <mat-form-field class="form-field">
+          <input formControlName="profileName" matInput placeholder="Profile Name*">
+          <mat-error>This field is mandatory.</mat-error>
+        </mat-form-field><br>
+
+        <mat-form-field class="form-field">
+          <input formControlName="description" matInput placeholder="Profile Description*">
+          <mat-error>This field is mandatory.</mat-error>
+        </mat-form-field><br>
+      </div>
+      <div>
+        <!-- <button mat-button matStepperPrevious>Back</button> -->
+        <button [disabled]="profileForm.invalid" type="submit" mat-raised-button (click)="loadProfilePermissions()"
+          color="primary" mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <div class="spinner-container loading-indicator" *ngIf="loading">
+      <mat-spinner></mat-spinner>
+    </div>
+    <ng-template matStepLabel>Select all the permissions you want to apply</ng-template>
+
+    <div>
+      <table class="permissiontable">
+        <tr>
+          <th style="width:60%">Table Name</th>
+          <th>Read</th>
+          <th>Create</th>
+          <th>Update</th>
+          <th>Delete</th>
+        </tr>
+        <tr *ngFor="let permission of profilePermissions">
+          <td><input type="checkbox" [(ngModel)]="permission.checked">{{permission.tablename}}</td>
+          <td><input type="checkbox" [(ngModel)]="permission.isread"></td>
+          <td><input type="checkbox" [(ngModel)]="permission.iscreate"></td>
+          <td><input type="checkbox" [(ngModel)]="permission.isupdate"></td>
+          <td><input type="checkbox" [(ngModel)]="permission.isdelete"></td>
+        </tr>
+        <tr>
+          <td colspan="5"><button mat-raised-button color="primary" (click)="getResult()">Save Permissions</button>
+            &nbsp;<button mat-raised-button color="warn" (click)="onClear()">Clear</button></td>
+        </tr>
+      </table>
+      {{this.getResult | json}}
+    </div>
+    <div>
+      <div style="float:right">
+
+      </div>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>

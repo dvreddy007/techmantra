@@ -1,0 +1,32 @@
+<div class="bodycontent">
+ <table class="table table-striped">
+    <tr>
+        <th>Name</th>
+        <th>User Name</th>
+        <th>Email</th>
+    </tr>
+    <tbody>
+        <tr *ngFor="let order of orders">
+            <td>{{order.id}}</td>
+            <td>{{order.title}}</td>
+            <td>{{order.completed}}</td>
+        </tr>   
+    </tbody>
+</table> 
+<!--<table class="table table-striped">
+  <tr>
+    <th>Order Id</th>
+    <th>Order Account Name</th>
+    <th>Order Owner Name</th>
+    <th>Order Status</th>
+    <th>Order Type</th>
+  </tr>
+  <tr *ngFor="let order of orders">
+    <td>{{order.Id}}</td>
+    <td>{{order.Account.Name}}</td>
+    <td>{{order.Owner.Name}}</td>
+    <td>{{order.Status}}</td>
+    <td>{{order.Type}}</td>
+  </tr>
+</table>  -->
+</div>

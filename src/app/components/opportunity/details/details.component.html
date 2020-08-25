@@ -1,0 +1,82 @@
+<form class="form" [formGroup]="opportunityForm">
+  <mat-form-field class="full-width">
+    <mat-label>Contract</mat-label>
+    <input formControlName="contractNumber" type="text" matInput>
+    <!-- <mat-icon matSuffix style = "color:#e6e6df">mode_edit</mat-icon> -->
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>Amount</mat-label>
+    <input formControlName="amount" type="text" matInput [value]="opportunityForm.get('amount').value | currency">
+    <!-- <mat-icon matSuffix style = "color:#e6e6df">mode_edit</mat-icon> -->
+  </mat-form-field>
+  <br><br>
+  <mat-form-field class="full-width">
+    <mat-label>Opportunity Owner</mat-label>
+    <input formControlName="opportunityOwner" type="text" matInput>
+    <!-- <mat-icon matSuffix style = "color:#e6e6df">mode_edit</mat-icon> -->
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>Expected revenue</mat-label>
+    <input formControlName="expectedRevenue" type="text" matInput
+      [value]="opportunityForm.get('expectedRevenue').value | currency">
+    <!-- <mat-icon matSuffix style = "color:#e6e6df">mode_edit</mat-icon> -->
+  </mat-form-field>
+  <br><br>
+  <mat-form-field class="full-width">
+    <mat-label>Opportunity Name</mat-label>
+    <input formControlName="opportunityName" type="text" matInput>
+    <!-- <mat-icon matSuffix style = "color:#e6e6df">mode_edit</mat-icon> -->
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>Close Date</mat-label>
+    <input formControlName="closeDate" matInput>
+    <mat-datepicker-toggle matSuffix></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    <!-- <mat-icon matSuffix style = "color:#e6e6df">mode_edit</mat-icon> -->
+  </mat-form-field>
+  <br><br>
+  <mat-form-field class="full-width">
+    <mat-label>Account Name</mat-label>
+    <input formControlName="accountName" type="text" matInput>
+    <!-- <mat-icon matSuffix style = "color:#e6e6df">mode_edit</mat-icon> -->
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>Stage</mat-label>
+    <input formControlName="stage" type="text" matInput>
+    <!-- <mat-icon matSuffix style = "color:#e6e6df">mode_edit</mat-icon> -->
+  </mat-form-field>
+  <br><br>
+  <mat-form-field class="full-width">
+    <mat-label>Forecast category</mat-label>
+    <input formControlName="forecastCategory" type="text" matInput>
+    <!-- <mat-icon matSuffix style = "color:#e6e6df">mode_edit</mat-icon> -->
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>Type</mat-label>
+    <input formControlName="type" type="text" matInput>
+    <!-- <mat-icon matSuffix style = "color:#e6e6df">mode_edit</mat-icon> -->
+  </mat-form-field>
+  <br><br>
+  <mat-form-field class="full-width">
+    <mat-label>Order Number</mat-label>
+    <input formControlName="contractNumber" type="text" matInput>
+    <!-- <mat-icon matSuffix style = "color:#e6e6df">mode_edit</mat-icon> -->
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>Created By</mat-label>
+    <input formControlName="createdDate" format="MMM/DD/YYYY HH:mm:ss" type="text" matInput>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    <!-- <mat-icon matSuffix style = "color:#e6e6df">mode_edit</mat-icon> -->
+  </mat-form-field>
+  <br><br>
+  <mat-form-field class="full-width">
+    <mat-label>Last Modified Date</mat-label>
+    <input formControlName="lastModifiedDate" matInput>
+    <mat-datepicker-toggle matSuffix></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    <!-- <mat-icon matSuffix style = "color:#e6e6df">mode_edit</mat-icon> -->
+  </mat-form-field>
+</form>

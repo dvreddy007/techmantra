@@ -1,0 +1,13 @@
+<mat-card style="background-color: #faf8f2;">
+
+  <app-accounthead [accountParams]="accParams"></app-accounthead>
+
+
+  <nav mat-tab-nav-bar class="mat-tab">
+    <a style="font-size: large; color:blue" mat-tab-link *ngFor="let link of navLink"
+      [queryParams]="{accountId:accParams}" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
+      routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [active]="rla.isActive">{{link.label}}
+    </a>
+  </nav>
+  <router-outlet></router-outlet>
+</mat-card>

@@ -1,0 +1,28 @@
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * Delete the template below * * * * * * * * * * -->
+<!-- * * * * * * * to get started with your project! * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<div class="flex-container" style="height: 4.5rem;" *ngIf="currentUser">   
+  <div><app-navbar></app-navbar></div>  
+</div>
+<div class="flex-container" style="min-height: 85vh;">
+  <div *ngIf="currentUser" style="flex: 1; min-height: 80vh;"><app-sidebar></app-sidebar>
+  </div> 
+  <div style="margin: 0.5rem; min-height: auto;"><router-outlet></router-outlet></div>
+</div>
+<div class="flex-container" *ngIf="currentUser">
+  <div class="tech-footer">@Copy rights reserved @TechMantra</div>
+</div>
+
+
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * End of Placeholder * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->

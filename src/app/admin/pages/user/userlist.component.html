@@ -1,0 +1,72 @@
+<mat-card>
+  <div class="alert alert-success alert-dismissible fade show" *ngIf="success">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>{{successMsg}}</strong>
+  </div>
+
+  {{errorMessage}}
+  {{resmessage}}
+  <!-- New part: this is the search box -->
+  <mat-input-container>
+    <div class="flexinputcontainer">
+      <input matInput placeholder="Search users" [(ngModel)]="value" #userinput class="searchinput">
+      <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div><button mat-raised-button color="primary" (click)="onCreateUser('Create',user)">
+        <mat-icon>person_add</mat-icon> Create User
+      </button></div>
+  </mat-input-container>
+  <br />
+  <br />
+  <div class="spinner-container loading-indicator" *ngIf="dataSource.loading$ | async">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <mat-table class="orders-table mat-elevation-z8" [dataSource]="dataSource" matSort matSortActive="username"
+    matSortDirection="asc" matSortDisableClear>
+
+    <ng-container matColumnDef="username">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>User Name</mat-header-cell>
+      <mat-cell *matCellDef="let user"><a class="girdlinks"
+          [routerLink]="['/userlist', user.userid]">{{user.userName}}</a></mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
+      <mat-cell class="description-cell" *matCellDef="let user">{{user.email}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+      <mat-cell class="duration-cell" *matCellDef="let user">{{user.firstName}} {{user.lastName}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="reportingManager">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Reporting Manager</mat-header-cell>
+      <mat-cell class="duration-cell" *matCellDef="let user">{{user.reportingManager}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="role">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Role</mat-header-cell>
+      <mat-cell class="duration-cell" *matCellDef="let user">{{user.role}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+      <mat-cell class="duration-cell" *matCellDef="let user"><a (click)="onEditUser('Update', user)"
+          style="cursor: pointer; color: blue;">Edit</a> &nbsp; &nbsp; <a (click)="onRemoveUser(user.uId)"
+          style="cursor: pointer; color: blue;">Remove</a></mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+  </mat-table>
+
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20, 50, 100, 150]" [pageSize]="5" [length]="20" showFirstLastButtons>
+  </mat-paginator>
+
+</mat-card>

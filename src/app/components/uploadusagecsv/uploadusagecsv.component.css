@@ -1,0 +1,29 @@
+
+  :host {
+    height: 100%;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+  }
+  
+  .actions {
+    justify-content: flex-end;
+  }
+  .alertsuccess{
+      color: #285b2a !important;
+      background-color: #ffffff !important;
+      margin: 1rem;
+  }
+  .container {
+    height: 100%;
+  }
+  .uploaddialogtitle{
+      width: 95%;
+      color: #1c4e80 !important;
+      font-family: Arial, Helvetica, sans-serif;
+  }
+  .downloadlink{
+    color: #1c4e80 !important;
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
+  }

@@ -1,0 +1,10 @@
+<mat-card>
+  <h2>List of Views</h2>
+  <ul class="viewlist">
+    <li *ngFor="let item of dataSource">
+      <a class="listviews" [routerLink]="['/admin/createview']"
+        [queryParams]="{ tablename: item.tableName, viewname: item.viewName }" style="color: #000076 !important;">
+        {{ item.viewName }}</a>
+    </li>
+  </ul>
+</mat-card>

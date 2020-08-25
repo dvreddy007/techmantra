@@ -1,0 +1,71 @@
+<mat-card>
+  {{errorMessage}}  
+  <!-- New part: this is the search box -->
+  <mat-input-container>
+    <input matInput placeholder="Search orders" #opportunityinput style="border-bottom:1px solid blueviolet; margin-bottom :2rem;">
+  </mat-input-container>
+  <br/>
+  <br/>
+  <div class="spinner-container loading-indicator" *ngIf="dataSource.loading$ | async">
+    <mat-spinner></mat-spinner>
+  </div>
+  
+  <mat-table class="orders-table mat-elevation-z8" [dataSource]="dataSource"
+  matSort matSortActive="account" matSortDirection="asc" matSortDisableClear>
+  
+    <ng-container matColumnDef="opportunityid">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Opportunity Id</mat-header-cell>
+        <mat-cell *matCellDef="let opportunity">{{opportunity.opportunityid}}</mat-cell>
+    </ng-container>
+  
+    <ng-container matColumnDef="opportunityname">
+        <mat-header-cell *matHeaderCellDef>Opportunity Name</mat-header-cell>
+        <mat-cell class="description-cell"
+                  *matCellDef="let opportunity">{{opportunity.opportunityname}}</mat-cell>
+    </ng-container>
+  
+    <ng-container matColumnDef="opportunityowner">
+        <mat-header-cell *matHeaderCellDef>Opportunity</mat-header-cell>
+        <mat-cell class="duration-cell"
+                  *matCellDef="let opportunity">{{opportunity.opportunityowner}}</mat-cell>
+    </ng-container>
+  
+  <ng-container matColumnDef="amount">
+        <mat-header-cell *matHeaderCellDef  mat-sort-header>Amount</mat-header-cell>
+        <mat-cell class="duration-cell"
+                  *matCellDef="let opportunity">{{opportunity.amount  |  currency:'USD' }}</mat-cell>
+    </ng-container>
+  
+  <ng-container matColumnDef="stage">
+        <mat-header-cell *matHeaderCellDef  mat-sort-header>Stage</mat-header-cell>
+        <mat-cell class="duration-cell"
+                  *matCellDef="let opportunity">{{opportunity.stage}}</mat-cell>
+    </ng-container>
+  
+  <ng-container matColumnDef="territory">
+        <mat-header-cell *matHeaderCellDef>Territory</mat-header-cell>
+        <mat-cell class="duration-cell"
+                  *matCellDef="let opportunity">{{opportunity.territory}}</mat-cell>
+    </ng-container>
+  
+  <ng-container matColumnDef="createddate">
+        <mat-header-cell *matHeaderCellDef>Created Date</mat-header-cell>
+        <mat-cell class="duration-cell"
+                  *matCellDef="let opportunity">{{opportunity.createddate | date:'medium'}}</mat-cell>
+    </ng-container>
+  
+    <ng-container matColumnDef="lastmodifieddate">
+      <mat-header-cell *matHeaderCellDef>Created Date</mat-header-cell>
+      <mat-cell class="duration-cell"
+                *matCellDef="let opportunity">{{opportunity.lastmodifieddate | date:'medium'}}</mat-cell>
+  </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  
+  </mat-table>
+  
+  
+  <mat-paginator [pageSizeOptions]="[5, 10, 20, 50, 100, 150]" [pageSize]="5" [length]="20" showFirstLastButtons></mat-paginator>
+  
+  </mat-card>

@@ -1,0 +1,25 @@
+<mat-card-header>
+  <mat-card-subtitle>Opportunity</mat-card-subtitle>
+  <mat-card-title>{{opportunityName}}</mat-card-title>
+</mat-card-header>
+<hr>
+<mat-card-content>
+  <div class="row">
+    <div class="col" style=" height: 50px;">
+      <label>Account Name</label>
+      <p>{{accountName}}</p>
+    </div>
+    <div class="col" style="height: 50px;">
+      <label>Close Date</label>
+      <p>{{closeDate  |  date:'MM/dd/yyy'}}</p>
+    </div>
+    <div class="col" style="height: 50px;">
+      <label>Amout</label>
+      <p>{{amount  |  currency:'USD' }}</p>
+    </div>
+    <div class="col" style="height: 50px;">
+      <label>Opportunity Owner</label>
+      <p>{{opportunityOwner}}</p>
+    </div>
+  </div>
+</mat-card-content>

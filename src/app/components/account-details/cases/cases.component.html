@@ -1,0 +1,110 @@
+<mat-card>
+
+<mat-tab-group class="mat-tab" >
+    <mat-tab label="Details"></mat-tab>
+  </mat-tab-group>
+
+<form class="form" [formGroup]="casesForm">
+
+    
+    <mat-form-field class="full-width">
+        <mat-label>Created At</mat-label>
+        <input formControlName="createdAt" type="text" matInput>
+        <!-- <mat-icon matSuffix class="icon">mode_edit</mat-icon> -->
+    </mat-form-field>
+    <mat-form-field class="full-width">
+        <mat-label>Description</mat-label>
+        <input formControlName="description" type="text" matInput>
+        <!-- <mat-icon matSuffix class="icon">mode_edit</mat-icon> -->
+    </mat-form-field>
+    <br><br>
+
+    <mat-form-field class="full-width">
+        <mat-label>Due At</mat-label>
+        <input formControlName="dueAt" type="text" matInput>
+        <!-- <mat-icon matSuffix class="icon">mode_edit</mat-icon> -->
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+        <mat-label>External Id</mat-label>
+        <input formControlName="externalId" type="text" matInput>
+        <!-- <mat-icon matSuffix class="icon">mode_edit</mat-icon> -->
+    </mat-form-field>
+    <br><br>
+
+    <mat-form-field class="full-width">
+        <mat-label>Account Currency</mat-label>
+        <input formControlName="accountCurrency" type="text" matInput>
+        <!-- <mat-icon matSuffix class="icon">mode_edit</mat-icon> -->
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+        <mat-label>Id</mat-label>
+        <input formControlName="id" type="text" matInput>
+            <!-- [value]="casesForm.get('annualRevenue').value | currency"> -->
+        <!-- <mat-icon matSuffix class="icon">mode_edit</mat-icon> -->
+    </mat-form-field>
+    <br><br>
+
+    <mat-form-field class="full-width">
+        <mat-label>Priority</mat-label>
+        <input formControlName="priority" type="text" matInput>
+        <!-- <mat-icon matSuffix class="icon">mode_edit</mat-icon> -->
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+        <mat-label>Recipient</mat-label>
+        <input formControlName="recipient" type="text" matInput>
+        <!-- <mat-icon matSuffix class="icon">mode_edit</mat-icon> -->
+    </mat-form-field>
+    <br><br>
+
+    <mat-form-field class="full-width">
+        <mat-label>Satifaction Rating</mat-label>
+        <input formControlName="satisfactionRating" matInput #message maxlength="256">
+        <!-- <mat-icon matSuffix class="icon">mode_edit</mat-icon> -->
+    </mat-form-field>
+    <mat-form-field class="full-width">
+        <mat-label>Status</mat-label>
+        <input formControlName="status" matInput #message maxlength="256">
+        <!-- <mat-icon matSuffix class="icon">mode_edit</mat-icon> -->
+    </mat-form-field>
+    <br><br>
+
+    <mat-form-field class="full-width">
+        <mat-label>Subject</mat-label>
+        <input formControlName="subject" matInput #message maxlength="256">
+        <!-- <mat-icon matSuffix class="icon">mode_edit</mat-icon> -->
+    </mat-form-field>
+    <mat-form-field class="full-width">
+        <mat-label>Tags</mat-label>
+        <input formControlName="tags" matInput #message maxlength="256">
+        <!-- <mat-icon matSuffix class="icon">mode_edit</mat-icon> -->
+    </mat-form-field>
+    <br><br>
+
+    <mat-form-field class="full-width">
+        <mat-label>Type</mat-label>
+        <input formControlName="type" matInput #message maxlength="256">
+        <!-- <mat-icon matSuffix class="icon">mode_edit</mat-icon> -->
+    </mat-form-field>
+    <mat-form-field class="full-width">
+        <mat-label>Updated At</mat-label>
+        <input formControlName="updatedAt" matInput #message maxlength="256">
+        <!-- <mat-icon matSuffix class="icon">mode_edit</mat-icon> -->
+    </mat-form-field>
+    <br><br>
+
+    <mat-form-field class="full-width">
+        <mat-label>Url</mat-label>
+        <input formControlName="url" matInput #message maxlength="256">
+        <!-- <mat-icon matSuffix class="icon">mode_edit</mat-icon> -->
+    </mat-form-field>
+    <mat-form-field class="full-width">
+        <mat-label>Via</mat-label>
+        <input formControlName="via" matInput #message maxlength="256">
+        <!-- <mat-icon matSuffix class="icon">mode_edit</mat-icon> -->
+    </mat-form-field>
+
+</form>
+</mat-card>

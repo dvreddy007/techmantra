@@ -1,0 +1,52 @@
+<mat-card>
+    <h2 style="text-align: center; color: blue;">All Reports</h2>
+    <!-- {{errorMessage}}
+    {{resmessage}} -->
+    <!-- New part: this is the search box -->
+    <!-- <mat-input-container>
+        <div class="flexinputcontainer">
+            <input matInput placeholder="Search users" [(ngModel)]="value" #userinput class="searchinput">
+            <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+        <mat-icon>close</mat-icon>
+      </button> 
+        </div>
+        
+    </mat-input-container> -->
+    <div style="float: right;"><button mat-raised-button color="primary" [routerLink]="['../newreport']">
+            <mat-icon>receipt</mat-icon> Create New Report
+        </button></div>
+    <br />
+    <br />
+    <!-- <div class="spinner-container loading-indicator" *ngIf="dataSource.loading$ | async">
+      <mat-spinner></mat-spinner>
+    </div> -->
+
+    <!-- <table mat-table [dataSource]="reportData" style="width: 95%;">
+        <ng-container *ngFor="let columnName of displayedColumns" [matColumnDef]="columnName">
+            <th mat-header-cell *matHeaderCellDef>{{ columnName | columnheadercamel}}</th>
+            <td mat-cell *matCellDef="let row">{{ row[columnName] }}</td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table> -->
+
+    <table class="table striped">
+        <thead class="mat-header-row">
+            <tr>
+                <th>Report Name</th>
+                <th>Report Created Date</th>
+            </tr>
+        </thead>
+        <tr *ngFor="let report of reportData">
+            <td>
+                <span style="color:#000076; cursor:pointer"><a
+                        (click)="openReportDialog(report)">{{report.reportName}}</a></span>
+            </td>
+            <td>{{report.reportCreatedDate | date:'short'}}</td>
+        </tr>
+    </table>
+
+</mat-card>
+
+<hr>
+<!-- <app-new-report></app-new-report> -->

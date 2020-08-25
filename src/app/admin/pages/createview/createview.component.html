@@ -1,0 +1,49 @@
+<mat-card>
+  <div>
+    <h1>{{ viewname }}</h1>
+  </div>
+  <div cdkDropListGroup style="
+      display: flex;
+      flex-direction: row;
+      flex: 1 1 1;
+      justify-content: center;
+      margin-bottom: -5rem;
+    ">
+    <div style="width: 20rem;">
+      <h2>Available Fields</h2>
+      <br />
+      <div cdkDropList #sourceColumnList="cdkDropList" [cdkDropListData]="sourceColumns"
+        [cdkDropListConnectedTo]="[selectedColumnList]" (cdkDropListDropped)="drop($event)" class="container">
+        <div class="item-box" *ngFor="let item of sourceColumns" cdkDrag>
+          {{ item.columnName |  columnheadercamel }}
+        </div>
+      </div>
+    </div>
+    <div class="arrowcontainer">
+      <a (click)="moveAll('right')" style="cursor: pointer;"><img src="../../../../assets/img/rightarrow.png"
+          style="width: 1.5rem;" title="Move all items to right" /></a>
+      <br /><br />
+      <a (click)="moveAll('left')" style="cursor: pointer;"><img src="../../../../assets/img/leftarrow.png"
+          style="width: 1.5rem;" title="Move all items to left" /></a>
+    </div>
+    <div style="width: 20rem;">
+      <h2>Selected Fields</h2>
+      <br />
+      <div cdkDropList #selectedColumnList="cdkDropList" [cdkDropListData]="selectedColumns"
+        [cdkDropListConnectedTo]="[sourceColumnList]" class="container" (cdkDropListDropped)="drop($event)">
+        <div class="item-box" *ngFor="let item of selectedColumns" cdkDrag>
+          {{ item.columnName  |  columnheadercamel }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="text-align: right; padding: 5px;">
+    <span class="success">{{message}}</span>
+    <button mat-raised-button color="primary" (click)="updateColumns()" style="margin: 8px;">
+      Save
+    </button>
+    <button mat-raised-button color="secondary" (click)="clearAll()" style="margin: 8px;">
+      Clear
+    </button>
+  </div>
+</mat-card>

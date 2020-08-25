@@ -1,0 +1,11 @@
+<div mat-dialog-content>
+    <p>Are you sure do you want to save this report? If yes, please give a name to save your report.</p>
+    <mat-form-field>
+        <mat-label>Report name</mat-label>
+        <input matInput [(ngModel)]="data.reportname">
+    </mat-form-field>
+</div>
+<div mat-dialog-actions style="float:right">
+    <button mat-button (click)="onNoClick()">No Thanks</button>
+    <button mat-raised-button color="primary" [mat-dialog-close]="data.reportname" cdkFocusInitial>Ok</button>
+</div>

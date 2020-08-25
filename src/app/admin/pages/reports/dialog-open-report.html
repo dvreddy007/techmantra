@@ -1,0 +1,13 @@
+<table class="table striped">
+    <thead class="mat-header-row">
+        <tr>
+            <th *ngFor="let columnHeader of displayedColumns">{{columnHeader | columnheadercamel}}</th>
+        </tr>
+    </thead>
+    <!-- <tr *ngFor="let row of report">
+        <td>{{row[columnHeader] | date:'short'}}</td>
+    </tr> -->
+</table>
+<div mat-dialog-actions>
+    <button mat-button mat-dialog-close>Close</button>
+</div>

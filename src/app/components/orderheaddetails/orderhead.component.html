@@ -1,0 +1,26 @@
+<mat-card-header>
+  <mat-card-subtitle>Order</mat-card-subtitle>
+  <mat-card-title>{{orderNumber}}</mat-card-title>
+</mat-card-header>
+<hr>
+<mat-card-content>
+  <div class="row">
+    <div class="col" style=" height: 50px;">
+      <label>Account Name</label>
+      <p><a class="pagelink" [routerLink]="['/account-details']"
+          [queryParams]="{'accountId':accountId}">{{accountName}}</a></p>
+    </div>
+    <div class="col" style="height: 50px;">
+      <label>Estimated Installdate</label>
+      <p>{{estimatedInstallDate  |  date:'medium'}}</p>
+    </div>
+    <div class="col" style="height: 50px;">
+      <label>Amount</label>
+      <p>{{orderAmount  |  currency:'USD' }}</p>
+    </div>
+    <div class="col" style="height: 50px;">
+      <label>Status</label>
+      <p>{{status}}</p>
+    </div>
+  </div>
+</mat-card-content>

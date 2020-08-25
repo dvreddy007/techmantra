@@ -1,0 +1,10 @@
+.mat-elevation-z8 {
+    width: 100%;
+}
+.mat-elevation-z8 th {
+    font-weight: 700;
+    font-size: large !important;
+}
+th.mat-sort-header-sorted {
+    color: black;
+  } 

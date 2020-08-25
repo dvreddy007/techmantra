@@ -1,0 +1,87 @@
+<mat-toolbar>
+  <div class="userform">
+    <div>
+      <span>New User</span>
+    </div>
+    <div style="width: 100%; text-align: right;">
+      <button class="btn dialog-close" mat-raised-button color="primary" mat-stroked-button (click)="onClose()"
+        tabindex="-1">
+        <mat-icon>clear</mat-icon>
+      </button>
+    </div>
+  </div>
+</mat-toolbar>
+<form [formGroup]="userForm" (ngSubmit)="onSubmitUsrForm()" class="normal-form" novalidate>
+  <div class="userform">
+    <div>
+      <mat-form-field class="form-field">
+        <input formControlName="userName" matInput placeholder="User Name*">
+        <mat-error>This field is mandatory.</mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="form-field">
+        <input formControlName="email" matInput placeholder="Email">
+        <mat-error>Invalid email address.</mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="userform">
+    <div>
+      <mat-form-field class="form-field">
+        <input formControlName="firstName" matInput placeholder="First Name*">
+        <mat-error>This field is mandatory.</mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="form-field">
+        <input formControlName="lastName" matInput placeholder="Last Name*">
+        <mat-error>This field is mandatory.</mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="userform">
+    <div>
+      <mat-form-field class="form-field">
+        <mat-label>Managers</mat-label>
+        <mat-select formControlName="reportingManager" name="reportingManager">
+          <mat-option>None</mat-option>
+          <mat-option *ngFor="let manager of managers" [value]="manager.firstName+manager.lastName">
+            {{manager.firstName | columnheadercamel}} {{manager.lastName | columnheadercamel}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="submitted && handleError('profileName', 'required')">This field is mandatory.</mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="form-field">
+        <mat-label>Roles</mat-label>
+        <mat-select formControlName="role" name="role">
+          <mat-option>None</mat-option>
+          <mat-option *ngFor="let role of roles" [value]="role.role">
+            {{role.role | columnheadercamel}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="submitted && handleError('profileName', 'required')">This field is mandatory.</mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="userform">
+    <div>
+      <mat-form-field class="form-field">
+        <mat-label>Profile</mat-label>
+        <mat-select formControlName="profileId" name="profile">
+          <mat-option>None</mat-option>
+          <mat-option *ngFor="let profile of profiles" [value]="profile.profileid">
+            {{profile.profilename}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="submitted && handleError('profileName', 'required')">This field is mandatory.</mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="button-row" style="text-align:right;">
+    <button mat-raised-button color="primary" type="submit" [disabled]="userForm.invalid">Save</button>
+    &nbsp;<button mat-raised-button color="warn" (click)="onClear()">Clear</button>
+  </div>
+</form>

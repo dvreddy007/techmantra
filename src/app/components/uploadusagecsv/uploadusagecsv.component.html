@@ -1,0 +1,40 @@
+<mat-card>
+    <input type="file" #file style="display: none" (change)="onFilesAdded()" accept=".csv" />
+    <div class="container uploaddialogtitle">
+        <h1 class="uploaddialogtitle">Import CSV template and Upload updated data CSV</h1>
+
+        <a class="downloadlink">
+            <mat-icon>cloud_download</mat-icon> download csv template
+        </a>
+        <br>
+        <br>
+        <button [disabled]="uploading || uploadSuccessful" mat-raised-button color="primary" (click)="addFiles()">
+            Add File
+        </button>
+        <br>
+        <br>
+        <br>
+        <br>
+        <!-- This is the content of the dialog, containing a list of the files to upload -->
+
+        <mat-list>
+            <mat-list-item *ngFor="let file of files">
+
+                <h4 mat-line>{{file.name}}</h4>
+
+                <mat-progress-bar *ngIf="progress" mode="determinate" [value]="progress[file.name].progress | async">
+                </mat-progress-bar>
+
+            </mat-list-item>
+        </mat-list>
+
+
+        <!-- This are the actions of the dialog, containing the primary and the cancel button-->
+        <div style="text-align: right;">
+            <span class="alertsuccess">{{successMesg}}</span>
+            <button *ngIf="showCancelButton" mat-button mat-dialog-close>Cancel</button>
+            <button mat-raised-button color="primary" [disabled]="!canBeClosed"
+                (click)="closeDialog()">{{primaryButtonText}}</button>
+        </div>
+    </div>
+</mat-card>

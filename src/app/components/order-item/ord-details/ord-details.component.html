@@ -1,0 +1,79 @@
+<form class="form" [formGroup]="orderdetailsForm">
+  <mat-form-field class="full-width">
+    <mat-label>Account Name</mat-label>
+    <input formControlName="account" type="tel" matInput>
+    <!-- <mat-icon matSuffix style = "color:#e6e6df">mode_edit</mat-icon> -->
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>Order Amount</mat-label>
+    <input formControlName="orderAmount" type="tel" matInput
+      [value]="orderdetailsForm.get('orderAmount').value | currency">
+    <!-- <mat-icon matSuffix style = "color:#e6e6df">mode_edit</mat-icon> -->
+  </mat-form-field>
+  <br><br>
+  <mat-form-field class="full-width">
+    <mat-label>Order Owner</mat-label>
+    <input formControlName="owner" type="tel" matInput>
+    <!-- <mat-icon matSuffix style = "color:#e6e6df">mode_edit</mat-icon> -->
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>Order Type</mat-label>
+    <input formControlName="type" type="tel" matInput>
+    <!-- <mat-icon matSuffix style = "color:#e6e6df">mode_edit</mat-icon> -->
+  </mat-form-field>
+
+  <br><br>
+  <mat-form-field class="full-width">
+    <mat-label>Order Number</mat-label>
+    <input formControlName="orderNumber" type="tel" matInput>
+    <!-- <mat-icon matSuffix style = "color:#e6e6df">mode_edit</mat-icon> -->
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>Status</mat-label>
+    <input formControlName="status" type="tel" matInput>
+    <!-- <mat-icon matSuffix style = "color:#e6e6df">mode_edit</mat-icon> -->
+  </mat-form-field>
+
+  <br><br>
+  <mat-form-field class="full-width">
+    <mat-label>Opportunity</mat-label>
+    <input formControlName="opportunityName" type="tel" matInput>
+    <!-- <mat-icon matSuffix style = "color:#e6e6df">mode_edit</mat-icon> -->
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>Shipping Address</mat-label>
+    <input formControlName="shippingAddress" type="tel" matInput>
+    <!-- <mat-icon matSuffix style = "color:#e6e6df">mode_edit</mat-icon> -->
+  </mat-form-field>
+
+  <br><br>
+  <mat-form-field class="full-width">
+    <mat-label>Order Start Date</mat-label>
+    <input formControlName="estimatedInstallDate" type="tel" matInput>
+    <!-- <mat-icon matSuffix style = "color:#e6e6df">mode_edit</mat-icon> -->
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>Billing Address</mat-label>
+    <input formControlName="billingAddress" type="tel" matInput>
+    <!-- <mat-icon matSuffix style = "color:#e6e6df">mode_edit</mat-icon> -->
+  </mat-form-field>
+  <br><br>
+  <mat-form-field class="full-width">
+    <mat-label>Created By</mat-label>
+    <input formControlName="createdDate" type="tel" matInput>
+    <!-- <mat-icon matSuffix style = "color:#e6e6df">mode_edit</mat-icon> -->
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>Last Modified By</mat-label>
+    <input formControlName="lastModifiedDate" type="tel" matInput>
+    <!-- <mat-icon matSuffix style = "color:#e6e6df">mode_edit</mat-icon> -->
+  </mat-form-field>
+  <br><br>
+
+</form>

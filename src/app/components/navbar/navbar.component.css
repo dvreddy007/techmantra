@@ -1,0 +1,21 @@
+.topnav{
+    list-style-type: none; display: flex; padding: 8px; margin: 8px;
+}
+
+.topnav li{
+    margin:0 1rem; font-size: 0.9rem;
+}
+.logo-img{
+    width: 2rem;
+}
+.nav-pills a {
+color: #97a2a7;
+}
+.nav-item a:hover{
+    background-color: rgba(80, 70, 168, 0.671);
+}
+/* .active{
+    padding-bottom: 2px !important;    
+    border-bottom: 3px solid #f1f1f1;
+    color: #f1f1f1;
+} */

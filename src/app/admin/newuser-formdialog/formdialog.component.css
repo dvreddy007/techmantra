@@ -1,0 +1,26 @@
+.btn dialog-close{
+    width: 35px;
+    min-width: 0px !important;
+    height: 20px;
+    padding: 3px !important;
+    
+}
+/* .fill-remaining-space{
+margin-left: 420px;
+} */
+
+.form-field{
+    width: 400px;
+}
+/* mat-grid-tile{
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+} */
+
+.userform{
+    display: flex; flex-direction:row; width:"100%";
+}
+.userform div{
+    margin: 0 1rem;
+}

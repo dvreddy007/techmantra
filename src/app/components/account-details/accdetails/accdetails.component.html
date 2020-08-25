@@ -1,0 +1,85 @@
+<form class="form" [formGroup]="accountForm">
+    <mat-form-field class="full-width">
+        <mat-label>Account Owner</mat-label>
+        <input formControlName="accountOwner" type="text" matInput>
+        <!-- <mat-icon matSuffix class="icon">mode_edit</mat-icon> -->
+    </mat-form-field>
+    <mat-form-field class="full-width">
+        <mat-label>Account Name</mat-label>
+        <input formControlName="accountName" type="text" matInput>
+        <!-- <mat-icon matSuffix class="icon">mode_edit</mat-icon> -->
+    </mat-form-field>
+    <br><br>
+    <mat-form-field class="full-width">
+        <mat-label>Phone</mat-label>
+        <input formControlName="phone" type="text" matInput>
+        <!-- <mat-icon matSuffix class="icon">mode_edit</mat-icon> -->
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+        <mat-label>Website</mat-label>
+        <input formControlName="website" type="text" matInput>
+        <!-- <mat-icon matSuffix class="icon">mode_edit</mat-icon> -->
+    </mat-form-field>
+    <br><br>
+
+    <mat-form-field class="full-width">
+        <mat-label>Account Record Type</mat-label>
+        <input formControlName="accountRecordType" type="text" matInput>
+        <!-- <mat-icon matSuffix class="icon">mode_edit</mat-icon> -->
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+        <mat-label>Account Numer</mat-label>
+        <input formControlName="accountNumber" type="text" matInput>
+        <!-- <mat-icon matSuffix class="icon">mode_edit</mat-icon> -->
+    </mat-form-field>
+    <br><br>
+
+    <mat-form-field class="full-width">
+        <mat-label>Annual Revenue</mat-label>
+        <input formControlName="annualRevenue" type="text" matInput
+            [value]="accountForm.get('annualRevenue').value | currency">
+        <!-- <mat-icon matSuffix class="icon">mode_edit</mat-icon> -->
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+        <mat-label>Industry</mat-label>
+        <input formControlName="industry" type="text" matInput>
+        <!-- <mat-icon matSuffix class="icon">mode_edit</mat-icon> -->
+    </mat-form-field>
+    <br><br>
+
+    <mat-form-field class="full-width">
+        <mat-label>Billing Address</mat-label>
+        <input formControlName="billingAddress" type="text" matInput>
+        <!-- <mat-icon matSuffix class="icon">mode_edit</mat-icon> -->
+    </mat-form-field>
+    <mat-form-field class="full-width">
+        <mat-label>Shipping Address</mat-label>
+        <input formControlName="shippingAddress" matInput #message maxlength="256">
+        <!-- <mat-icon matSuffix class="icon">mode_edit</mat-icon> -->
+    </mat-form-field>
+    <br><br>
+    <mat-form-field class="full-width">
+        <mat-label>Account Currency</mat-label>
+        <input formControlName="accountCurrency" matInput #message maxlength="256">
+        <!-- <mat-icon matSuffix class="icon">mode_edit</mat-icon> -->
+    </mat-form-field>
+    <mat-form-field class="full-width">
+        <mat-label>Territory</mat-label>
+        <input formControlName="territory" matInput #message maxlength="256">
+        <!-- <mat-icon matSuffix class="icon">mode_edit</mat-icon> -->
+    </mat-form-field>
+    <br><br>
+    <mat-form-field class="full-width">
+        <mat-label>Crerated Date</mat-label>
+        <input formControlName="createdDate" matInput #message maxlength="256">
+        <!-- <mat-icon matSuffix class="icon">mode_edit</mat-icon> -->
+    </mat-form-field>
+    <mat-form-field class="full-width">
+        <mat-label>Last Modified Date</mat-label>
+        <input formControlName="lastModifiedDate" matInput #message maxlength="256">
+        <!-- <mat-icon matSuffix class="icon">mode_edit</mat-icon> -->
+    </mat-form-field>
+</form>

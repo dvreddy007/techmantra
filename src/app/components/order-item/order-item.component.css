@@ -1,0 +1,19 @@
+.mat-elevation-z8 {
+    width: 100%;
+}
+.mat-elevation-z8 th {
+    font-weight: 700;
+    font-size: large !important;
+}
+th.mat-sort-header-sorted {
+    color: black;
+  }
+  .mat-tab{
+    border-radius: 7px;
+    background-color: #d9e1e9;
+    
+  }
+  .active{
+    background-color: rgb(178, 181, 199);
+    border-radius: 5px;
+  }

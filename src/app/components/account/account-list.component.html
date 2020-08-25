@@ -1,0 +1,31 @@
+<mat-card>
+  {{ errorMessage }}
+
+  <!-- New part: this is the search box -->
+  <mat-input-container>
+    <input matInput placeholder="Search accounts" [(ngModel)]="value" #accountinput class="searchinput" />
+    <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value = ''">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-input-container>
+  <br />
+  <br />
+  <div class="spinner-container loading-indicator" *ngIf="dataSource.loading$ | async">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <mat-table class="accounts-table mat-elevation-z8" [dataSource]="dataSource" matSort matSortDirection="asc"
+    matSortDisableClear>
+    <ng-container *ngFor="let item of displayedColumns" matColumnDef="{{item}}">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>{{item | tableheadercamel}}</mat-header-cell>
+      <mat-cell class="description-cell" *matCellDef="let row"><span class="cellnav">{{
+        row[item]
+      }}</span></mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns" (click)="getSelectedRow(row)"></mat-row>
+  </mat-table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20, 50, 100, 150]" [pageSize]="5" [length]="20" showFirstLastButtons>
+  </mat-paginator>
+</mat-card>

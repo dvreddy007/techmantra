@@ -1,0 +1,20 @@
+.panelhead{
+    height: 40px;
+}
+
+.paneltitle{
+    padding-top:13px
+}
+
+.toggle-collapse{
+    font-size:medium;
+}
+
+.btn-div{
+    margin-left: 230px;
+     float:right
+}
+
+.panelbody{
+    padding-bottom: 15px;
+}

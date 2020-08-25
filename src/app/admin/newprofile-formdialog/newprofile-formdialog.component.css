@@ -1,0 +1,17 @@
+.btn dialog-close{
+    width: 45px;
+    min-width: 0px !important;
+    height: 20px;
+    padding: 0px !important;
+    
+}
+.fill-remaining-space{
+margin-left: 380px;
+}
+
+.form-field{
+    width: 400px;
+}
+input[type=checkbox]{
+    margin: 0 5px;
+}

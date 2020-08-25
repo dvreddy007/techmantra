@@ -1,0 +1,11 @@
+<mat-card style="background-color: #faf8f2;">
+  <app-orderhead [orderParams]="ordParams"></app-orderhead>
+  <hr>
+  <nav mat-tab-nav-bar style=" border-radius: 7px;">
+    <a style="font-size: large;" mat-tab-link *ngFor = "let link of navLink" [routerLink] = "link.path" routerLinkActive
+     #rla = "routerLinkActive" [active] = "rla.isActive">{{link.label}}
+    </a>
+  </nav>
+  <router-outlet></router-outlet>
+</mat-card>
+  
