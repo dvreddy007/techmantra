@@ -6,3 +6,6 @@ mat-input-container{
 {
     display: flex; flex-direction: row; flex: 1 1;
 }
+.mat-elevation-z8{
+    width: 100%;
+}

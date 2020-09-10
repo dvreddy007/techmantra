@@ -37,7 +37,7 @@ export class OrderListComponent implements AfterViewInit, OnInit {
     console.log(this.accountIdforOrders);
     // checking the condition to load orders when redirecting from account details page for the account related orders
     if (this.accountIdforOrders !== '' || this.accountIdforOrders !== null) {
-      this.loadOrdersOfCols(this.viewName, this.accountIdforOrders, 'asc', '', 1, 5)
+      this.loadOrdersOfCols(this.viewName, this.accountIdforOrders, 'asc', '', 1, 10)
     } else {
       this.loadOrdersOfCols(this.viewName, '', 'asc', '', 1, 5)
     }

@@ -1,0 +1,31 @@
+<mat-card>
+    <h1>Role Management</h1>
+    <span style="color: blue;">{{successMesg}}</span><br><br>
+    <div class="spinner-container loading-indicator" *ngIf=spinner>
+        <mat-spinner></mat-spinner>
+    </div>
+    <button mat-raised-button color="primary" (click)="tree.treeControl.collapseAll()">Collapse All</button> &nbsp;
+    <button mat-raised-button color="primary" (click)="tree.treeControl.expandAll()">Expand All</button>
+    <mat-tree #tree [dataSource]="dataSource" [treeControl]="treeControl">
+        <!-- This is the tree node template for leaf nodes -->
+        <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding class="treelinks">
+            <!-- use a disabled button to provide padding for tree leaf -->
+            <button mat-icon-button disabled></button>
+            {{node.value}} <a (click)="editRoleDialog(node)">Edit</a> | <a (click)="deleteRoleDialog(node)">Delete</a> |
+            <a (click)="assignRole()">Assign</a><br>
+            <a (click)="saveRoleDialog(node)">Add Role</a>
+        </mat-tree-node>
+        <!-- This is the tree node template for expandable nodes -->
+        <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+            <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.value">
+                <mat-icon class="mat-icon-rtl-mirror">
+                    {{treeControl.isExpanded(node) ? 'remove' : 'add'}}
+                </mat-icon>
+            </button>
+            {{node.value}} <a (click)="editRoleDialog(node)">Edit</a> | <a (click)="deleteRoleDialog(node)">Delete</a> |
+            <a (click)="assignRole()">Assign</a>
+            <br>
+            <a (click)="saveRoleDialog(node)">Add Role</a>
+        </mat-tree-node>
+    </mat-tree>
+</mat-card>

@@ -39,11 +39,21 @@ export class UploadUsageCSVComponent implements OnInit {
         this.file.nativeElement.click();
     }
 
+
+    downloadTemplate() {
+
+        this.uploadService.downloadUsageTemplate().subscribe(response => {
+            console.log(JSON.stringify(response));
+            let blob: any = new Blob([response.blob()], { type: 'text/json; charset=utf-8' });
+            const url = window.URL.createObjectURL(blob);
+            window.open(url);
+            //window.location.href = response.url;
+            //fileSaver.saveAs(blob, 'employees.json');
+        }), error => console.log('Error downloading the file'),
+            () => console.info('File downloaded successfully');
+    }
+
     closeDialog() {
-        // if everything was uploaded already, just close the dialog
-        // if (this.uploadSuccessful) {
-        //     return this.dialogRef.close();
-        // }
 
         // set the component state to "uploading"
         this.uploading = true;

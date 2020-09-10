@@ -27,6 +27,7 @@ import { ReportGenDataSource } from '../../../datasources/reportdatasource';
 import * as moment from 'moment';
 import { items } from 'fusioncharts';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Base64 } from 'js-base64';
 export interface DialogData {
   reportname: string;
   name: string;
@@ -41,7 +42,7 @@ export class NewReportComponent implements OnInit {
   eHr: string = "";
   myDate;
   // disabled = true;
-  actions = ["Last 3months", "Last 6months", "Current FY", "Previous FY", "Previous 2FY"]
+  actions = ["Custom", "Last 3months", "Last 6months", "Current FY", "Previous FY", "Previous 2FY"]
 
   // dateClass = (d: Date): MatCalendarCellCssClasses => {
   //   const date = d.getDate();
@@ -49,7 +50,7 @@ export class NewReportComponent implements OnInit {
   // }
 
   onDateChange(value) {
-    console.log(value)
+    // console.log(value)
     if (value == "Last 3months") {
       this.eHr = (moment().subtract(3, 'month').format('YYYY-MM-DD'));
       this.myDate = new Date(Date.now());
@@ -74,8 +75,8 @@ export class NewReportComponent implements OnInit {
     }
 
 
-    console.log(this.eHr);
-    console.log(this.myDate);
+    // console.log(this.eHr);
+    // console.log(this.myDate);
 
   }
   public reportDataSource;
@@ -90,7 +91,7 @@ export class NewReportComponent implements OnInit {
   opportunitybaseTableVal = false;
   ordersbaseTableVal = false;
   selectedTable: string = '';
-  tableSelectedforFields: string = '';
+  public tableSelectedforFilter: any[] = [];
   public selectedDisplayColumns = [];
   public reportGenTableList;
   public reportGenSelectedTableList;
@@ -105,6 +106,12 @@ export class NewReportComponent implements OnInit {
   public columnsSelected = [];
   public reportDisplayColumns = [];
   public newTableObj = [];
+  public dateColumns = [];
+  public columnGroupedByTable = [];
+  public selectedDateCol;
+  public reportId;
+  public editReportObj;
+  public errorMesg;
   panelOpenState = false;
   isSelected = false;
   isSaveReport = false;
@@ -129,37 +136,20 @@ export class NewReportComponent implements OnInit {
   constructor(public dialog: MatDialog, private _router: ActivatedRoute,
     private viewService: CommonService) { }
 
-  // getTableColumns(selectedTableObj) {
-  //   this.spinner = true;
-  //   this.showIcon = !this.showIcon;
-  //   this.viewService.getTableColumns(selectedTableObj).subscribe((response) => {
-  //     this.tablefieldModel = response;
-  //     this.selectedSourceTableColumns = response;
-  //     this.selectedDisplayColumns = response;
-  //     this.spinner = false;
-  //     console.log("The selected source columns are ... " + JSON.stringify(this.selectedDisplayColumns));
-  //   },
-  //     (error) => (this.error = error)
-  //   );
-  // }
-
   getRelatedTables(selectedTable) {
     this.spinner = true;
     this.newTableObj = [];
     this.viewService.getReportTableList(selectedTable).subscribe((response) => {
       this.reportGenSelectedTableList = response;
-
-      console.log('the related tables are ...' + JSON.stringify(this.reportGenSelectedTableList))
+      // console.log('the related tables are ...' + JSON.stringify(this.reportGenSelectedTableList))
       this.reportGenSelectedTableList.forEach((item) => {
         this.viewService.getTableColumns(item).subscribe((response) => {
           this.tablefieldModel = response;
           this.selectedSourceTableColumns = response;
           this.selectedDisplayColumns = response;
           this.spinner = false;
-          //newTableObj[item.table_name] = response;
           this.newTableObj.push({ 'tableName': item.table_name, tablefieldModel: response });
-          console.log("item is  ... " + JSON.stringify(this.newTableObj));
-          console.log("response is ... " + JSON.stringify(this.newTableObj));
+
         },
           (error) => (this.error = error)
         );
@@ -167,28 +157,18 @@ export class NewReportComponent implements OnInit {
     },
       (error) => (this.error = error)
     );
-    console.log("The selected source columns are ... " + JSON.stringify(this.newTableObj));
-    // this.viewService.getTableColumnsList(selectedTable).subscribe((response) => {
-    //   this.selectedDisplayColumns = response['queryResult'];
-    // },
-    //   (error) => (this.error = error)
-    // );
   }
 
   selectTableforReport(event: MatCheckboxChange): void {
-    console.log(event.checked);
+    // console.log(event.checked);
     if (event.checked === true) {
       this.disabled = true;
       this.newTableObj.forEach((item) => {
         this.selectedTableColumns = item.tablefieldModel.filter((item) => item.isSelected === true)
-        this.selectedTableColumns.forEach((item) => { console.log(item); this.reportDisplayColumns.push(item.fieldName) })
+        this.selectedTableColumns.forEach((item) => { this.reportDisplayColumns.push(item.fieldName) })
+        this.selectedTableColumns.forEach((item) => { this.tableSelectedforFilter.push({ tableName: item.tableName, relationKey: item.relationKey }) })
       })
-      // this.newTableObj.filter((item) => { console.log(item.tablefieldModel); this.selectedTableColumns = item.tablefieldModel item.isSelected === true })
-      // this.selectedTableColumns.forEach((item) => { console.log(item); this.reportDisplayColumns.push(item.fieldName) })
     }
-    // this.selectedTableColumns.forEach((item) => { delete item.isSelected });
-    console.log(JSON.stringify(this.selectedTableColumns));
-    console.log(JSON.stringify(this.reportDisplayColumns));
   }
 
   onIcon_opp() {
@@ -196,7 +176,7 @@ export class NewReportComponent implements OnInit {
   }
 
   onDragStart(event: DragEvent) {
-    console.log("drag started", JSON.stringify(event, null, 2));
+    // console.log("drag started", JSON.stringify(event, null, 2));
   }
 
   // onDragStartDisplay(event: DragEvent) {
@@ -204,15 +184,15 @@ export class NewReportComponent implements OnInit {
   // }
 
   onDragEnd(event: DragEvent) {
-    console.log("drag ended", JSON.stringify(event, null, 2));
+    // console.log("drag ended", JSON.stringify(event, null, 2));
   }
 
   onDraggableCopied(event: DragEvent) {
-    console.log("draggable copied", JSON.stringify(event, null, 2));
+    // console.log("draggable copied", JSON.stringify(event, null, 2));
   }
 
   onDraggableLinked(event: DragEvent) {
-    console.log("draggable linked", JSON.stringify(event, null, 2));
+    // console.log("draggable linked", JSON.stringify(event, null, 2));
   }
 
   onDragged(item: any, list: any[], effect: DropEffect) {
@@ -230,15 +210,15 @@ export class NewReportComponent implements OnInit {
   }
 
   onDragCanceled(event: DragEvent) {
-    console.log("drag cancelled", JSON.stringify(event, null, 2));
+    //console.log("drag cancelled", JSON.stringify(event, null, 2));
   }
 
   onDragover(event: DragEvent) {
-    console.log("dragover", JSON.stringify(event, null, 2));
+    // console.log("dragover", JSON.stringify(event, null, 2));
   }
 
   onDragoverDisplay(event: DragEvent) {
-    console.log("dragover", JSON.stringify(event, null, 2));
+    // console.log("dragover", JSON.stringify(event, null, 2));
   }
 
   onDropDisplayColumns(event: DndDropEvent, list?: any[]) {
@@ -252,7 +232,7 @@ export class NewReportComponent implements OnInit {
       }
       list.splice(index, 0, event.data);
     }
-    console.log("ondragged", JSON.stringify(list));
+    // console.log("ondragged", JSON.stringify(list));
   }
 
   onDrop(event: DndDropEvent, list?: any[]) {
@@ -274,20 +254,6 @@ export class NewReportComponent implements OnInit {
   }
 
   removeField(i) {
-    // Swal({
-    //   title: 'Are you sure?',
-    //   text: "Do you want to remove this field?",
-    //   type: 'warning',
-    //   showCancelButton: true,
-    //   confirmButtonColor: '#00B96F',
-    //   cancelButtonColor: '#d33',
-    //   confirmButtonText: 'Yes, remove!'
-    // }).then((result) => {
-    //   if (result.value) {
-    //     this.model.attributes.splice(i, 1);
-    //   }
-    // });
-
   }
 
   test() { }
@@ -302,79 +268,18 @@ export class NewReportComponent implements OnInit {
     input.append('textColor', this.model.theme.textColor);
     input.append('attributes', JSON.stringify(this.model.attributes));
   }
-
-
   initReport() {
     this.report = true;
     let input = {
       id: this.model._id
     }
   }
-
-
-
   toggleValue(item) {
     item.selected = !item.selected;
   }
 
   submit() {
-    // let valid = true;
-    // let validationArray = JSON.parse(JSON.stringify(this.model.attributes));
-    // validationArray.reverse().forEach(field => {
-    //   console.log(field.label + '=>' + field.required + "=>" + field.value);
-    //   if (field.required && !field.value && field.type != 'checkbox') {
-    //     Swal('Error', 'Please enter ' + field.label, 'error');
-    //     valid = false;
-    //     return false;
-    //   }
-    //   if (field.required && field.regex) {
-    //     let regex = new RegExp(field.regex);
-    //     if (regex.test(field.value) == false) {
-    //       Swal('Error', field.errorText, 'error');
-    //       valid = false;
-    //       return false;
-    //     }
-    //   }
-    //   if (field.required && field.type == 'checkbox') {
-    //     if (field.values.filter(r => r.selected).length == 0) {
-    //       Swal('Error', 'Please enterrr ' + field.label, 'error');
-    //       valid = false;
-    //       return false;
-    //     }
-
-    //   }
-    // });
-    // if (!valid) {
-    //   return false;
-    // }
-    // console.log('Save', this.model);
-    // let input = new FormData;
-    // input.append('formId', this.model._id);
-    // input.append('attributes', JSON.stringify(this.model.attributes))
-    // this.us.postDataApi('/user/formFill',input).subscribe(r=>{
-    //   console.log(r);
-    //   Swal('Success','You have contact sucessfully','success');
-    //   this.success = true;
-    // },error=>{
-    //   Swal('Error',error.message,'error');
-    // });
   }
-  // drop(event: CdkDragDrop<string[]>) {
-  //   if (event.previousContainer === event.container) {
-  //     moveItemInArray(
-  //       event.container.data,
-  //       event.previousIndex,
-  //       event.currentIndex
-  //     );
-  //   } else {
-  //     transferArrayItem(
-  //       event.previousContainer.data,
-  //       event.container.data,
-  //       event.previousIndex,
-  //       event.currentIndex
-  //     );
-  //   }
-  // }
 
   dropColumn(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
@@ -408,13 +313,70 @@ export class NewReportComponent implements OnInit {
   }
 
   ngOnInit() {
+    this._router.queryParams.subscribe(params => {
+      console.log(JSON.stringify(params.reportId));
+      this.reportId = params.reportId;
+      console.log(this.reportId)
+
+      this.spinner = true;
+      this.viewService.editReport(this.reportId).subscribe((response) => {
+        this.editReportObj = response[0].reportObject;
+        this.getRelatedTables(this.editReportObj.selectedTable);
+        this.selectedTable = this.editReportObj.selectedTable;
+        this.model = this.editReportObj.model;
+        console.log("The edit report obj is .... " + JSON.stringify(this.editReportObj.selectedTable))
+        this.spinner = false;
+      },
+        (error) => (this.error = error)
+      );
+
+    })
+
+
+
     this.spinner = true;
-    this.viewService.getReportTableList(this.selectedTable).subscribe((response) => {
+    this.viewService.getTableList().subscribe((response) => {
       this.reportGenTableList = response;
       this.spinner = false;
     },
       (error) => (this.error = error)
     );
+
+
+
+    // this.getRelatedTables("ACCOUNT");
+    // this.selectedTable = "ACCOUNT";
+    // this.model = { "attributes": [{ "type": "text", "label": "Account Owner", "tableName": "ACCOUNT", "placeholder": "Enter Account Owner", "className": "form-control", "relationKey": "accountId", "fieldName": "ACCOUNT.accountOwner", "datatype": "varchar", "name": "text-1598862891969", "value": "Usha Ganti" }] };
+    // let reportQuery = this._router.snapshot.data["reportQuery"];
+    // console.log(reportQuery);
+    // this.selectTableforReport;
+
+
+    this.viewService.getDateColumns().subscribe((response) => {
+      this.dateColumns = response;
+
+      // creating the array for group by table name of date field columns
+      const groupBy = (array, key) => {
+        return array.reduce((result, currentValue) => {
+          (result[currentValue[key]] = result[currentValue[key]] || []).push(
+            currentValue
+          );
+          return result;
+        }, {});
+      };
+
+      // Group by table name as key to the date columns array
+      this.columnGroupedByTable = groupBy(this.dateColumns, 'table_name');
+      console.log(JSON.stringify(this.columnGroupedByTable))
+      this.columnGroupedByTable.forEach(element => {
+        console.log(JSON.stringify(element));
+      });
+      this.spinner = false;
+    },
+      (error) => (this.error = error)
+    );
+
+
   }
   groupBy(arrayObj, property) {
     return arrayObj.reduce(function (accumulator, object) {
@@ -426,10 +388,23 @@ export class NewReportComponent implements OnInit {
       return accumulator;
     }, {});
   }
+
+  // filter duplicate items from selected columns tables from checkboxes
+  arrayUnique(arr, uniqueKey) {
+    const flagList = new Set()
+    return arr.filter(function (item) {
+      if (!flagList.has(item[uniqueKey])) {
+        flagList.add(item[uniqueKey])
+        return true
+      }
+    })
+  }
+
   generateReportModel(model, selectedTable, isSave, reportName) {
+    console.log('model for edit page' + JSON.stringify(model));
     this.spinner = true;
     let children = this.groupBy(model.attributes, 'tableName');
-    console.log(selectedTable);
+    // console.log(this.tableSelectedforFilter);
     let filters = children[selectedTable];
     let jsontoSubmit = {};
     if (selectedTable === "ACCOUNT") {
@@ -442,7 +417,8 @@ export class NewReportComponent implements OnInit {
 
     let uniqueDisplayColumns = this.reportDisplayColumns.filter(function (item, pos, self) {
       return self.indexOf(item) == pos;
-    })
+    });
+    console.log(JSON.stringify(uniqueDisplayColumns));
 
     jsontoSubmit = {
       parent: {
@@ -450,32 +426,35 @@ export class NewReportComponent implements OnInit {
         filters: filters
       },
       children,
-      displayColumns: uniqueDisplayColumns
+      displayColumns: uniqueDisplayColumns,
+      selectedTables: this.arrayUnique(this.tableSelectedforFilter, 'tableName'),
     }
 
     this.viewService.generateReport(jsontoSubmit).subscribe((response) => {
-      this.reportDataSource = response;
-      this.displayedColumns = Object.keys(this.reportDataSource[0]);
-      this.spinner = false;
-      this.isSaveReport = true;
+      if (response !== undefined || response !== null) {
+        this.reportDataSource = response;
+        this.spinner = false;
+        this.displayedColumns = Object.keys(this.reportDataSource[0]);
+        this.isSaveReport = true;
+      } else {
+        let errorMesg = "No data found with the filters";
+      }
+      //this.spinner = false;
     },
-      (error) => (this.error = error)
+      (error) => { this.error = error; this.spinner = false; }
     );
   }
 
-  saveReportDiaslog(model, selectedTable, isSave, reportName): void {
+  saveReportDialog(model, selectedTable, isSave, reportName): void {
     const dialogRef = this.dialog.open(SaveReportDialog, {
       width: '25rem',
       height: '15rem',
       data: { name: this.name, reportname: this.reportname }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       this.reportname = result;
-      // this.generateReportModel(model, selectedTable, isSave, this.reportname);
       this.spinner = true;
       let children = this.groupBy(model.attributes, 'tableName');
-      console.log(selectedTable);
       let filters = children[selectedTable];
       let jsontoSubmit = {};
       if (selectedTable === "ACCOUNT") {
@@ -491,6 +470,11 @@ export class NewReportComponent implements OnInit {
       })
 
       jsontoSubmit = {
+        reportObject: {
+          model: model,
+          selectedTable: selectedTable,
+          reportDisplayColumns: this.tableSelectedforFilter
+        },
         isSave: isSave,
         reportName: this.reportname,
         parent: {
@@ -498,7 +482,8 @@ export class NewReportComponent implements OnInit {
           filters: filters
         },
         children,
-        displayColumns: uniqueDisplayColumns
+        displayColumns: uniqueDisplayColumns,
+        selectedTables: this.arrayUnique(this.tableSelectedforFilter, 'tableName'),
       }
 
       this.viewService.generateReport(jsontoSubmit).subscribe((response) => {
@@ -510,7 +495,6 @@ export class NewReportComponent implements OnInit {
         (error) => (this.error = error)
       );
     });
-
   }
 
 }

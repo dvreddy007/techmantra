@@ -12,6 +12,18 @@ import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { NewprofileFormdialogComponent } from '../../newprofile-formdialog/newprofile-formdialog.component';
 import { FormdialogComponent } from '../../newuser-formdialog/formdialog.component';
 import { CommonService } from 'src/app/_services/common.service';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { SelectionModel } from '@angular/cdk/collections';
+import { MatTableDataSource } from '@angular/material/table';
+export interface ImportedUser {
+  userId: string;
+  userName: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  reportingManager: string;
+}
+const ELEMENT_DATA: ImportedUser[] = [];
 @Component({
   selector: 'app-users',
   templateUrl: './userlist.component.html',
@@ -23,6 +35,16 @@ export class UserListComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = ['username', 'email', 'name', 'reportingManager', 'role', 'actions'];
   dataSource: UserDataSource;
   public errorMessage;
+  public error;
+  public importedUserList = false;
+  public spinner = false;
+  public userList: any[];
+  userForm: FormGroup;
+
+  displayedColumnsselectUsrs: string[] = ['userId', 'email', 'name', 'reportingManager', 'status'];
+  dataSourceselectUsrs = new MatTableDataSource<ImportedUser>(ELEMENT_DATA);
+  selection = new SelectionModel<ImportedUser>(true, []);
+
   successMsg;
   success = false;
   public tableBg = {
@@ -30,7 +52,30 @@ export class UserListComponent implements AfterViewInit, OnInit {
     padding: "15px",
     border: "1px solid #ccc"
   }
-  constructor(private _router: ActivatedRoute, private route: Router, private _commonService: CommonService, private cdr: ChangeDetectorRef, private dialog: MatDialog) { }
+
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSourceselectUsrs.data.length;
+    return numSelected === numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.dataSourceselectUsrs.data.forEach(row => this.selection.select(row));
+  }
+
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: ImportedUser): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.userId + 1}`;
+  }
+
+  constructor(public fb: FormBuilder, private _router: ActivatedRoute, private route: Router, private _commonService: CommonService, private cdr: ChangeDetectorRef, private dialog: MatDialog) { }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -54,11 +99,27 @@ export class UserListComponent implements AfterViewInit, OnInit {
     });
   }
 
+  onSubmitUsrForm() {
+    console.log(JSON.stringify(this.userForm.value));
+    //alert(JSON.stringify(this.userForm.value))    
+    // this._commonService.saveUsers(this.userForm.value).subscribe(
+    //   (response) => (this.resmessage = response),
+    //   (error) => (error = error)
+    // );
+  }
+
+  // importSelectedUsrs(selected) {
+  //   console.log(JSON.stringify(selected));
+  // }
 
   ngOnInit() {
     this.user = this._router.snapshot.data["user"];
     this.dataSource = new UserDataSource(this._commonService);
     this.dataSource.loadusers('', 'asc', '', 1, 5);
+
+    this.userForm = this.fb.group({
+      userId: ['', [Validators.required]],
+    });
   }
 
   ngAfterViewInit() {
@@ -85,6 +146,23 @@ export class UserListComponent implements AfterViewInit, OnInit {
 
   loadUsersPage() {
     this.dataSource.loadusers(this.userinput.nativeElement.value, this.sort.direction, this.sort.active, this.paginator.pageIndex, this.paginator.pageSize);
+  }
+
+  public handleError = (controlName: string, errorName: string) => {
+    return this.userForm.controls[controlName].hasError(errorName);
+  };
+
+  importUser(Import, user) {
+    this.spinner = true;
+    this._commonService.getImportUsersList().subscribe((res) => {
+      console.log(JSON.stringify(this.userList));
+      if (res.length > 0) {
+        this.dataSourceselectUsrs = res;
+        this.importedUserList = true;
+      }
+      this.spinner = false;
+    },
+      (error) => (this.error = error));
   }
 
   onCreateUser(action, obj) {

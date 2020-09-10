@@ -24,7 +24,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatExpansionModule } from '@angular/material/expansion';
-
+import { MatTreeModule } from '@angular/material/tree';
+import { MatDividerModule } from '@angular/material/divider';
 // import { MatSnackBar } from '@angular/material/snack-bar';
 
 const modules = [
@@ -53,6 +54,8 @@ const modules = [
   MatRadioModule,
   MatProgressBarModule,
   MatExpansionModule,
+  MatTreeModule,
+  MatDividerModule
 ];
 
 @NgModule({

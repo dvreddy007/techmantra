@@ -17,8 +17,22 @@ export class OrderService {
   private currentUserSubject: BehaviorSubject<any>;
   public _url = environment.apiUrl;
   public currentUser: Observable<any>;
+  public userName = sessionStorage.getItem('userName');
+  public profileId = sessionStorage.getItem('profileId');
+  public role = sessionStorage.getItem('role');
+  public userProfile = sessionStorage.getItem('userProfile');
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+
+  }
+  public csmUserObj = {
+    role: this.role,
+    profileId: this.profileId,
+    userName: this.userName,
+    userProfile: this.userProfile,
+  }
+
+
   public _headers = {
     Authorization: 'Bearer ' + sessionStorage.getItem('token'),
   };
@@ -37,6 +51,7 @@ export class OrderService {
         sortBy: active,
         pageNumber: pageNumber,
         pageSize: pageSize,
+        ...this.csmUserObj,
       })
       .pipe(
         map((res) => {
@@ -104,6 +119,7 @@ export class OrderService {
         sortBy: active,
         pageNumber: pageNumber,
         pageSize: pageSize,
+        ...this.csmUserObj,
       })
       .pipe(
         map((res) => {
@@ -128,6 +144,7 @@ export class OrderService {
         sortBy: active,
         pageNumber: pageNumber,
         pageSize: pageSize,
+        ...this.csmUserObj,
       })
       .pipe(
         map((res) => {
@@ -154,6 +171,7 @@ export class OrderService {
         sortBy: active,
         pageNumber: pageNumber,
         pageSize: pageSize,
+        ...this.csmUserObj,
       })
       .pipe(
         map((res) => {
@@ -165,14 +183,27 @@ export class OrderService {
   }
 
   getAllAccountsView(data) {
+    data.role = this.role;
+    data.profileId = this.profileId;
+    data.userName = this.userName;
+    data.userProfile = this.userProfile;
     return this.http.post<any>(this._url + '/getAccounts', data);
   }
 
   getAllOpportunitiesView(data) {
+    data.role = this.role;
+    data.profileId = this.profileId;
+    data.userName = this.userName;
+    data.userProfile = this.userProfile;
     return this.http.post<any>(this._url + '/getOpportunities', data);
   }
 
   getAllOrdersView(data) {
+    console.log(JSON.stringify(this.csmUserObj));
+    data.role = this.role;
+    data.profileId = this.profileId;
+    data.userName = this.userName;
+    data.userProfile = this.userProfile;
     return this.http.post<any>(this._url + '/getDashboardData', data);
   }
 
@@ -237,6 +268,20 @@ export class OrderService {
     return this.http
       .post<any>(this._url + '/getTicketDetails', {
         accountId: accountId,
+      })
+  }
+
+  getInvoice(orderId) {
+    return this.http
+      .post<any>(this._url + '/getInvoiceDetails', {
+        orderId: orderId
+      })
+  }
+
+  getInvoiceItem(invoiceId) {
+    return this.http
+      .post<any>(this._url + '/getInvoiceLineItems', {
+        invoiceId: invoiceId
       })
   }
 }

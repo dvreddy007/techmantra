@@ -1,0 +1,14 @@
+<div mat-dialog-content>
+    <p>Modify the role name</p>
+    <mat-form-field>
+        <mat-label>Role name</mat-label>
+        <input matInput [(ngModel)]="data.roleName" [value]="data.roleName">
+    </mat-form-field>
+    <mat-form-field hidden="true">
+        <input matInput [(ngModel)]="data.id">
+    </mat-form-field>
+</div>
+<div mat-dialog-actions style="float:right">
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-raised-button color="primary" [mat-dialog-close]="data" cdkFocusInitial>Update</button>
+</div>

@@ -35,8 +35,12 @@ export class NavbarComponent implements OnInit {
     }
 
     logout() {
+        sessionStorage.clear();
+        localStorage.clear();
         this.authenticationService.logout();
         this.router.navigate(['/login']);
+        //location.reload();
+        window.location.replace('/login');
     }
 
     ngOnInit() {
@@ -52,7 +56,7 @@ export class NavbarComponent implements OnInit {
             }
         });
 
-        if (sessionStorage.getItem('userProfile').replace(/^"(.*)"$/, '$1') === "ADMIN") {
+        if (sessionStorage.getItem('userProfile').replace(/^"(.*)"$/, '$1') === "ADMIN" || sessionStorage.getItem('userProfile').replace(/^"(.*)"$/, '$1') === "CSM") {
             this.isAdmin = true;
         }
         this.loggedInUserName = sessionStorage.getItem('loggedInUserName').replace(/^"(.*)"$/, '$1');

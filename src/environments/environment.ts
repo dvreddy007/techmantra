@@ -4,7 +4,10 @@
 
 export const environment = {
   production: false,
-  apiUrl: "http://3.89.75.255:7896"
+  apiUrl: "http://3.89.75.255:7896",
+  contractdurationVal: 75,
+  usageBoundVal: 75,
+  usageTimeBoundVal: 75,
 };
 
 /*

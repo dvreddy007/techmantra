@@ -17,6 +17,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { OrderService } from './_services/order.service';
 import { CommonService } from './_services/common.service';
+import { RoleManagementService } from './_services/rolemanagement.service';
 import { fakeBackendProvider } from './_helpers';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -52,6 +53,7 @@ import { TableHeaderCamelCase } from './custompipes/camelcase'
 import { UploadUsageCSVComponent } from './components/uploadusagecsv/uploadusagecsv.component';
 import { UploadService } from './_services/upload.service';
 import { CasesComponent } from './components/account-details/cases/cases.component';
+import { InvoiceModaldialogComponent } from './components/order-item/ord-related/invoice-modaldialog.component';
 // import { DndModule } from 'ngx-drag-drop';
 
 FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme);
@@ -82,6 +84,7 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme);
     TableHeaderCamelCase,
     UploadUsageCSVComponent,
     CasesComponent,
+    InvoiceModaldialogComponent
   ],
   imports: [
     BrowserModule,
@@ -109,6 +112,7 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme);
     CommonService,
     CurrencyPipe,
     UploadService,
+    RoleManagementService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     fakeBackendProvider,

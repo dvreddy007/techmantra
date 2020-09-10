@@ -62,6 +62,7 @@ export const routes: Routes = [
   {
     path: 'cases/:accountid', component: CasesComponent
   },
+  
 
   { path: '**', component: PagenotfoundComponent },
 ];

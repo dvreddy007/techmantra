@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { UserDataSource } from 'src/app/datasources/usersdatasource';
 import { CommonService } from 'src/app/_services/common.service';
 import { MatDialog } from '@angular/material/dialog';
+import { ReportModalDialogComponent } from './report-modaldialog.component'
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-reports',
@@ -15,7 +17,10 @@ export class ReportsComponent implements OnInit {
   dataSource: UserDataSource;
   reportData: any[];
   reportResult: any[];
-  constructor(private _commonService: CommonService, public dialog: MatDialog) { }
+  dialogValue: any[];
+  sendValue: any[];
+  public errorMesg;
+  constructor(private router: Router, private _commonService: CommonService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this._commonService.getReports().subscribe((response) => {
@@ -23,24 +28,24 @@ export class ReportsComponent implements OnInit {
       //this.displayedColumns = Object.keys(this.reportData[0]);
     })
   }
-  openReportDialog(report) {
-    console.log(report.reportQuery);
-    this._commonService.getReport(report.reportQuery).subscribe((response) => {
-      this.reportResult = response;
-      this.displayedColumns = Object.keys(this.reportResult[0]);
-      console.log(JSON.stringify(this.displayedColumns));
-      const dialogRef = this.dialog.open(ReportDialogComponent);
-      dialogRef.afterClosed().subscribe(result => {
-        console.log(`Dialog result: ${result}`);
-      });
 
-    })
+  editReport(report) {
+    //console.log(JSON.stringify(report));
+    this.router.navigate(['/admin/newreport'], { queryParams: report })
+  }
+
+  openReportDialog(report) {
+    const dialogRef = this.dialog.open(ReportModalDialogComponent, {
+      width: '95%',
+      backdropClass: 'custom-dialog-backdrop-class',
+      panelClass: 'custom-dialog-panel-class',
+      data: { pageValue: report }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.dialogValue = result.data;
+    });
+
   }
 }
-@Component({
-  selector: 'dialog-open-report',
-  templateUrl: 'dialog-open-report.html',
-})
-export class ReportDialogComponent extends ReportsComponent {
-  public displayedColumns: any[];
-}
+

@@ -8,7 +8,7 @@ import {
   ReportsComponent,
 } from './pages';
 import { NewReportComponent, SaveReportDialog } from '../admin/pages/new-report/new-report.component'
-import { from } from 'rxjs';
+import { RolemanagementComponent } from './pages/rolemanagement/rolemanagement.component'
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'userlist' },
@@ -18,6 +18,8 @@ const routes: Routes = [
   { path: 'createview', component: CreateViewComponent },
   { path: 'reports', component: ReportsComponent },
   { path: 'newreport', component: NewReportComponent },
+  { path: 'rolemanagement', component: RolemanagementComponent },
+
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],

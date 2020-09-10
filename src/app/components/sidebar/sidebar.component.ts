@@ -40,14 +40,11 @@ export class SidebarComponent implements OnInit {
   menuItems: any[];
   public loggedInUserName;
   public isAdmin: boolean = false;
-  constructor() {}
+  constructor() { }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter((menuItem) => menuItem);
-    if (
-      sessionStorage.getItem('userProfile').replace(/^"(.*)"$/, '$1') ===
-      'ADMIN'
-    ) {
+    if (sessionStorage.getItem('userProfile').replace(/^"(.*)"$/, '$1') === 'ADMIN' || sessionStorage.getItem('userProfile').replace(/^"(.*)"$/, '$1') === 'CSM') {
       this.isAdmin = true;
     }
     this.loggedInUserName = sessionStorage

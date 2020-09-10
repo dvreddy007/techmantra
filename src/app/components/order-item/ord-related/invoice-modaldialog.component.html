@@ -1,0 +1,65 @@
+
+<button style="float:right" class="close" mat-raised-button (click)="closeDialog()"><mat-icon>close</mat-icon></button>
+<br>
+<br>
+<br>
+    <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Invoice Number</th>
+            <td>{{invoice.invoiceNumber}}</td>
+          
+            <th>Invoice Amount</th>
+            <td>{{invoice.invoiceAmount}}</td>
+          </tr>
+          <tr>
+            <th>Invoice Date</th>
+            <td>{{invoice.invoiceDate}}</td>
+         
+            <th>Payment Date</th>
+            <td>{{invoice.paymentTerms}}</td>
+          </tr>
+        </thead>
+    </table>
+
+    <hr>
+    <!-- {{errorMessage}} -->
+
+    <div class="spinner-container" *ngIf="dataSource.orderitemloading$ | async">
+      <mat-spinner></mat-spinner>
+    </div>
+
+    <mat-table class="mat-elevation-z8" [dataSource]="dataSource" matSort matSortActive="ordernumber"
+      matSortDirection="asc" matSortDisableClear>
+
+
+      <ng-container matColumnDef="productName">
+        <mat-header-cell *matHeaderCellDef>Product Name</mat-header-cell>
+        <mat-cell class="duration-cell" *matCellDef="let dataSource">{{dataSource.productName}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="quantity">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Quantity</mat-header-cell>
+        <mat-cell class="duration-cell" *matCellDef="let dataSource">{{dataSource.quantity}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="unitPrice">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Unit Price</mat-header-cell>
+        <mat-cell class="duration-cell" *matCellDef="let dataSource">
+          {{dataSource.unitPrice}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="totalNetPrice">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Total Price</mat-header-cell>
+        <mat-cell class="duration-cell" *matCellDef="let dataSource">
+          {{dataSource.totalNetPrice}}
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayColumns"></mat-row>
+    </mat-table>
+<br>
+   

@@ -1,9 +1,9 @@
 <mat-toolbar>
-  <div class="userform">
+  <div class="userform" style="width: 100%;">
     <div>
       <span>New User</span>
     </div>
-    <div style="width: 100%; text-align: right;">
+    <div>
       <button class="btn dialog-close" mat-raised-button color="primary" mat-stroked-button (click)="onClose()"
         tabindex="-1">
         <mat-icon>clear</mat-icon>
@@ -50,7 +50,7 @@
             {{manager.firstName | columnheadercamel}} {{manager.lastName | columnheadercamel}}
           </mat-option>
         </mat-select>
-        <mat-error *ngIf="submitted && handleError('profileName', 'required')">This field is mandatory.</mat-error>
+        <mat-error *ngIf="submitted && handleError('reportingManager', 'required')">This field is mandatory.</mat-error>
       </mat-form-field>
     </div>
     <div>
@@ -59,7 +59,7 @@
         <mat-select formControlName="role" name="role">
           <mat-option>None</mat-option>
           <mat-option *ngFor="let role of roles" [value]="role.role">
-            {{role.role | columnheadercamel}}
+            {{role.role}}
           </mat-option>
         </mat-select>
         <mat-error *ngIf="submitted && handleError('profileName', 'required')">This field is mandatory.</mat-error>

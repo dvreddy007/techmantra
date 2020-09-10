@@ -51,7 +51,7 @@ export class OpportunityListComponent implements AfterViewInit, OnInit {
     if (this.accountIdforOpportunities !== '' || this.accountIdforOpportunities !== null) {
       this.loadOpportunitiesOfCols(this.viewName, this.accountIdforOpportunities, 'asc', '', 1, 5)
     } else {
-      this.loadOpportunitiesOfCols(this.viewName, '', 'asc', '', 1, 5)
+      this.loadOpportunitiesOfCols(this.viewName, '', 'asc', '', 1, 10)
     }
     // console.log(JSON.stringify(this.dataSource.loadallopportunities('', 'asc', '', 1, 5)))
   }

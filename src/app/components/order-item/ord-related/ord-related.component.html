@@ -5,11 +5,11 @@
     <h4 class="panel-title" style="padding-top:13px;">
       <a (click)="onIcon()" data-toggle="collapse" href="#collapse1" style="font-size:medium;"
         style="color:rgb(102, 68, 224);">Order Products </a>
-        <div class="btn-div" (click)="onIcon()">
-      <a data-toggle="collapse" href="#collapse1" style="color:rgb(102, 68, 224);" *ngIf="showIcon"><i class="fa fa-chevron-circle-down"
-          style="font-size: 16px;"></i></a>
-      <a data-toggle="collapse" href="#collapse1" style="color:rgb(102, 68, 224);" *ngIf="!showIcon"><i class="fa fa-chevron-circle-up"
-          style="font-size: 16px;"></i></a>
+      <div class="btn-div" (click)="onIcon()">
+        <a data-toggle="collapse" href="#collapse1" style="color:rgb(102, 68, 224);" *ngIf="showIcon"><i
+            class="fa fa-chevron-circle-down" style="font-size: 16px;"></i></a>
+        <a data-toggle="collapse" href="#collapse1" style="color:rgb(102, 68, 224);" *ngIf="!showIcon"><i
+            class="fa fa-chevron-circle-up" style="font-size: 16px;"></i></a>
         <!-- <button mat-stroked-button color="primary" style="height: 32px;">Add Products</button>&nbsp;
             <button mat-stroked-button color="primary" style="height: 32px;"> New</button> -->
       </div>
@@ -79,16 +79,16 @@
     <h4 class="panel-title" style="padding-top:13px;">
       <a (click)="onUsageIcon()" data-toggle="collapse" href="#collapse2" style="font-size:medium;"
         style="color:rgb(102, 68, 224);">Order Usage </a>
-        <div class="btn-div" (click)="onUsageIcon()">
-      <a data-toggle="collapse" href="#collapse2" style="color:rgb(102, 68, 224);" *ngIf="usageIcon"><i class="fa fa-chevron-circle-down"
-          style="font-size: 16px;"></i></a>
-      <a data-toggle="collapse" href="#collapse2" style="color:rgb(102, 68, 224);" *ngIf="!usageIcon"><i class="fa fa-chevron-circle-up"
-          style="font-size: 16px;"></i></a>
-      <!-- <div class="btn-div" style="float:right;">
+      <div class="btn-div" (click)="onUsageIcon()">
+        <a data-toggle="collapse" href="#collapse2" style="color:rgb(102, 68, 224);" *ngIf="usageIcon"><i
+            class="fa fa-chevron-circle-down" style="font-size: 16px;"></i></a>
+        <a data-toggle="collapse" href="#collapse2" style="color:rgb(102, 68, 224);" *ngIf="!usageIcon"><i
+            class="fa fa-chevron-circle-up" style="font-size: 16px;"></i></a>
+        <!-- <div class="btn-div" style="float:right;">
             <button mat-stroked-button color="primary" style="height: 32px;">Add Products</button>&nbsp;
             <button mat-stroked-button color="primary" style="height: 32px;"> New</button>
           </div> -->
-          </div>
+      </div>
     </h4>
   </div>
   <hr>
@@ -150,6 +150,44 @@
             </mat-cell>
           </ng-container>
 
+          <ng-container matColumnDef="usage">
+            <mat-header-cell *matHeaderCellDef>Usage</mat-header-cell>
+            <mat-cell class="duration-cell" *matCellDef="let orderUsage">
+              <div
+                style="display: flex; margin: 5px; flex-wrap:wrap; width: 3rem; padding-left: 1rem; font-size: 12px !important;">
+                <div class="row">
+                  <div>Amount {{orderUsage.usagePercentage}}%</div>
+                  <div>
+                    <mat-progress-bar style="width:125px !important;" mode="determinate" color="primary"
+                      [(ngModel)]="orderUsage.usagePercentage" [value]="orderUsage.usagePercentage">
+                    </mat-progress-bar>
+                  </div>
+                </div>
+                <div class="row">
+                  <div>Time {{orderUsage.timePercentage}}%</div>
+                  <div>
+                    <mat-progress-bar style="width:125px !important;" mode="determinate"
+                      [(ngModel)]="orderUsage.timePercentage" color="accent" [value]="orderUsage.timePercentage">
+                    </mat-progress-bar>
+                  </div>
+                </div>
+              </div>
+              <!-- <mat-list>
+                <mat-list-item style="font-size: 12px !important;">Amount: {{orderUsage.usagePercentage}}%
+                  <mat-progress-bar style="width:125px !important; margin-left: 5px;" mode="determinate" color="primary"
+                    [(ngModel)]="orderUsage.usagePercentage" [value]="orderUsage.usagePercentage">
+                  </mat-progress-bar>
+                </mat-list-item>
+                
+                <mat-list-item style="font-size: 12px !important;"> Time {{orderUsage.timePercentage}}%<mat-progress-bar
+                    style="width:125px !important; margin-left: 5px;" mode="determinate"
+                    [(ngModel)]="orderUsage.timePercentage" color="accent" [value]="orderUsage.timePercentage">
+                  </mat-progress-bar>
+                </mat-list-item>
+              </mat-list> -->
+            </mat-cell>
+          </ng-container>
+
           <mat-header-row *matHeaderRowDef="displayedColumns1"></mat-header-row>
           <mat-row *matRowDef="let row; columns: displayedColumns1"></mat-row>
 
@@ -160,3 +198,96 @@
     </div>
   </div>
 </div>
+
+<!-- invoice -->
+
+<div class="panel panel-default">
+  <div class="panel-heading" style=" height: 40px;">
+    <h4 class="panel-title" style="padding-top:13px;">
+      <a (click)="onInvoiceIcon()" data-toggle="collapse" href="#collapse3" style="font-size:medium;"
+        style="color:rgb(102, 68, 224);">Invoices </a>
+        <div class="btn-div" (click)="onInvoiceIcon()">
+      <a data-toggle="collapse" href="#collapse3" style="color:rgb(102, 68, 224);" *ngIf="invoiceIcon"><i class="fa fa-chevron-circle-down"
+          style="font-size: 16px;"></i></a>
+      <a data-toggle="collapse" href="#collapse3" style="color:rgb(102, 68, 224);" *ngIf="!invoiceIcon"><i class="fa fa-chevron-circle-up"
+          style="font-size: 16px;"></i></a>
+      <!-- <div class="btn-div" style="float:right;">
+            <button mat-stroked-button color="primary" style="height: 32px;">Add Products</button>&nbsp;
+            <button mat-stroked-button color="primary" style="height: 32px;"> New</button>
+          </div> -->
+          </div>
+    </h4>
+  </div>
+  <hr>
+  <div id="collapse3" class="panel-collapse collapse">
+    <div class="panel-body" style="padding-bottom: 15px;">
+
+      <mat-card>
+        {{errorMessage}}
+        <!-- <span style="color:blue"><h4><i class="material-icons">dashboard</i>The order items of order {{ordernumber}}</h4></span> -->
+        <!-- New part: this is the search box -->
+        <!-- <mat-input-container>
+                <input matInput placeholder="Search orders items" #orderiteminput style="border-bottom:1px solid blueviolet; margin-bottom :2rem;">
+              </mat-input-container> -->
+
+        <div class="spinner-container" *ngIf="dataSource.orderitemloading$ | async">
+          <mat-spinner></mat-spinner>
+        </div>
+
+        <mat-table class="mat-elevation-z8" [dataSource]="invoice" matSort matSortActive="ordernumber"
+          matSortDirection="asc" matSortDisableClear>
+
+          <!-- <ng-container matColumnDef="ordersitemsid">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Order Item Id</mat-header-cell>
+                    <mat-cell *matCellDef="let orderitem">{{orderitem.ordersitemsid}}</mat-cell>
+                </ng-container> -->
+
+          <ng-container matColumnDef="invoiceNumber">
+            <mat-header-cell *matHeaderCellDef>Invoice Number</mat-header-cell>
+            <mat-cell class="description-cell" *matCellDef="let invoice">
+              <span style="color:#000076; cursor:pointer"><a
+                (click)="openInvoiceDialog(invoice)">{{invoice.invoiceNumber}}</a></span> 
+              </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="invoiceAmount">
+            <mat-header-cell *matHeaderCellDef>Invoice Amount</mat-header-cell>
+            <mat-cell class="duration-cell" *matCellDef="let invoice">{{invoice.invoiceAmount}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="invoiceDate">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Invoice Date</mat-header-cell>
+            <mat-cell class="duration-cell" *matCellDef="let invoice">{{invoice.invoiceDate}}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="paymentTerms">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Payment Terms</mat-header-cell>
+            <mat-cell class="duration-cell" *matCellDef="let invoice">
+              {{invoice.paymentTerms}}
+            </mat-cell>
+          </ng-container>
+
+          <!-- <ng-container matColumnDef="startDate">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Start Date</mat-header-cell>
+            <mat-cell class="duration-cell" *matCellDef="let orderUsage">{{orderUsage.startDate}}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="endDate">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>End Date</mat-header-cell>
+            <mat-cell class="duration-cell" *matCellDef="let orderUsage">{{orderUsage.endDate}}
+            </mat-cell>
+          </ng-container> -->
+
+          <mat-header-row *matHeaderRowDef="displayedColumnsInvoice"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumnsInvoice"></mat-row>
+
+        </mat-table>
+        <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20, 50, 100, 150]" [pageSize]="5" [length]="20"
+              showFirstLastButtons></mat-paginator> -->
+      </mat-card>
+    </div>
+  </div>
+</div>
+

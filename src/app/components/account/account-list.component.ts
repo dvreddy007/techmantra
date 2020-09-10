@@ -33,6 +33,10 @@ export class AccountListComponent implements AfterViewInit, OnInit, OnChanges {
     padding: '15px',
     border: '1px solid #ccc',
   };
+  public userName = sessionStorage.getItem('userName');
+  public profileId = sessionStorage.getItem('profileId');
+  public role = sessionStorage.getItem('role');
+  public userProfile = sessionStorage.getItem('userProfile');
   constructor(
     private _router: ActivatedRoute,
     private route: Router,
@@ -46,7 +50,7 @@ export class AccountListComponent implements AfterViewInit, OnInit, OnChanges {
   public displayedColumns: string[] = [];
   ngOnInit() {
     this.order = this._router.snapshot.data['order'];
-    this.loadAccountsOfCols(this.viewName, '', 'asc', '', 1, 5)
+    this.loadAccountsOfCols(this.viewName, '', 'asc', '', 1, 10)
   }
   loadAccountsOfCols(viewName, filter, sortOrder, sortBy, pageNumber, pageSize) {
     this.loadAccountsforCols(viewName, filter, sortOrder, sortBy, pageNumber, pageSize);
@@ -104,6 +108,10 @@ export class AccountListComponent implements AfterViewInit, OnInit, OnChanges {
       sortBy: sortBy,
       pageNumber: pageNumber,
       pageSize: pageSize,
+      userName: this.userName,
+      profileId: this.profileId,
+      role: this.role,
+      userProfile: this.userProfile
     };
     this._orderService.getAllAccountsView(data).subscribe(
       (response) => {

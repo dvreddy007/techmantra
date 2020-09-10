@@ -13,8 +13,12 @@ import {
   ViewsListComponent,
   CreateViewComponent,
 } from './pages';
-import { ReportsComponent, ReportDialogComponent } from '../admin/pages/reports/reports.component'
-import { NewReportComponent, SaveReportDialog } from '../admin/pages/new-report/new-report.component'
+import { ReportsComponent } from '../admin/pages/reports/reports.component'
+import { ReportModalDialogComponent } from '../admin/pages/reports/report-modaldialog.component'
+import { NewReportComponent, SaveReportDialog } from '../admin/pages/new-report/new-report.component';
+import { RolemanagementComponent, AddRoleComponent, EditRoleComponent, DeleteRoleComponent } from '../admin/pages/rolemanagement/rolemanagement.component';
+import { CreateroleComponent } from './pages/createrole/createrole.component';
+
 @NgModule({
   declarations: [
     NewprofileFormdialogComponent,
@@ -24,10 +28,15 @@ import { NewReportComponent, SaveReportDialog } from '../admin/pages/new-report/
     ViewsListComponent,
     CreateViewComponent,
     ReportsComponent,
-    ReportDialogComponent,
+    ReportModalDialogComponent,
     NewReportComponent,
     SaveReportDialog,
     ColumnHeaderCamelCase,
+    RolemanagementComponent,
+    AddRoleComponent,
+    EditRoleComponent,
+    DeleteRoleComponent,
+    CreateroleComponent,
   ],
   imports: [
     CommonModule,
@@ -47,7 +56,7 @@ import { NewReportComponent, SaveReportDialog } from '../admin/pages/new-report/
     ViewsListComponent,
     CreateViewComponent,
     ReportsComponent,
-    ReportDialogComponent,
+    ReportModalDialogComponent,
     NewReportComponent,
   ],
   providers: [],

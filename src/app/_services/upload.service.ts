@@ -14,6 +14,13 @@ export class UploadService {
     public _url = environment.apiUrl;
     constructor(private http: HttpClient) { }
 
+    // to download usage template   
+
+    downloadUsageTemplate(): Observable<any> {
+        return this.http.get(this._url + '/downloadUsageTemplate');
+    }
+
+    // to upload the usage template
     public upload(
         files: Set<File>
     ): { [key: string]: { progress: Observable<number> } } {
@@ -29,7 +36,7 @@ export class UploadService {
 
             // create a http-post request and pass the form
             // tell it to report the upload progress
-            const req = new HttpRequest('POST', this._url + '/file/upload', formData, {
+            const req = new HttpRequest('POST', this._url + '/uploadUsageFile', formData, {
                 reportProgress: true
             });
 

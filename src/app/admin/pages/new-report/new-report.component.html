@@ -55,44 +55,42 @@
                 class="dndDropArea" [ngClass]="{'empty':model.attributes.length == 0}">
                 <form class="ftheme" style="display: flex; flex-direction: row; flex-wrap: wrap;">
                     <div>
-                        <label>Date Field:</label>
+                        <label>Date Field:</label> &nbsp;
                         <mat-form-field>
-                            <mat-select>
-                                <mat-option value="createddate">Date Created</mat-option>
-                                <mat-option value="valid">Date Modified</mat-option>
+                            <mat-select [(ngModel)]="selectedDateCol" name="column.column_name">
+                                <mat-option><strong>ACCOUNT</strong></mat-option>
+                                <!-- <mat-option *ngFor="let column of columnGroupedByTable.ACCOUNT"
+                                    [value]="column.ACCOUNT">
+                                    {{column.column_name | columnheadercamel}}
+                                </mat-option> -->
+                                <mat-option><strong>ORDERS</strong></mat-option>
+                                <!-- <mat-option *ngFor="let column of columnGroupedByTable.ORDERS" [value]="column.ORDERS">
+                                    {{column.column_name | columnheadercamel}}
+                                </mat-option> -->
+                                <mat-option><strong>OPPORTUNITY</strong></mat-option>
+                                <!-- <mat-option *ngFor="let column of columnGroupedByTable.OPPORTUNITY"
+                                    [value]="column.ORDERS">
+                                    {{column.column_name | columnheadercamel}}
+                                </mat-option> -->
                             </mat-select>
-                            <!-- <mat-hint>Errors appear instantly!</mat-hint>
-                            <mat-error *ngIf="selected.hasError('required')">You must make a selection</mat-error>
-                            <mat-error *ngIf="selected.hasError('pattern') && !selected.hasError('required')">
-                                Your selection is invalid
-                            </mat-error> -->
                         </mat-form-field>
                     </div>
                     <div style="margin-left: 1.5rem;">
-                        <label>Range From:</label>
+                        <label>Range From:</label> &nbsp;
                         <mat-form-field>
-                            <mat-select formControlName="option" (selectionChange)="onDateChange($event.value)">
+                            <mat-select name="option" (selectionChange)="onDateChange($event.value)">
                                 <mat-option *ngFor="let option of actions" [value]="option">{{option}}</mat-option>
-                                <!-- <mat-option value="createddate">Last 3 months</mat-option>
-                                <mat-option value="createddate">Current FY</mat-option>
-                                <mat-option value="valid">Previous FY</mat-option>
-                                <mat-option value="valid">Previous 2FY</mat-option> -->
                             </mat-select>
-                            <!-- <mat-hint>Errors appear instantly!</mat-hint>
-                            <mat-error *ngIf="selected.hasError('required')">You must make a selection</mat-error>
-                            <mat-error *ngIf="selected.hasError('pattern') && !selected.hasError('required')">
-                                Your selection is invalid
-                            </mat-error> -->
                         </mat-form-field><br>
                         <mat-form-field style="margin: 0 15px" class="example-full-width" appearance="fill">
-                            <mat-label>Choose a date from</mat-label>
+                            <mat-label>Choose a date from</mat-label> &nbsp;
                             <input matInput name="fname" [matDatepicker]="datefrompicker" [(ngModel)]="eHr" disabled>
                             <mat-datepicker-toggle matSuffix [for]="datefrompicker"></mat-datepicker-toggle>
                             <mat-datepicker [eHr]="eHr" #datefrompicker></mat-datepicker>
                         </mat-form-field>
 
                         <mat-form-field style="margin: 0 15px" class="example-full-width" appearance="fill">
-                            <mat-label>Choose a date to</mat-label>
+                            <mat-label>Choose a date to</mat-label> &nbsp;
                             <input matInput name="lname" [matDatepicker]="datetopicker" [(ngModel)]="myDate" disabled>
                             <mat-datepicker-toggle matSuffix [for]="datetopicker"></mat-datepicker-toggle>
                             <mat-datepicker #datetopicker></mat-datepicker>
@@ -279,7 +277,7 @@
             <div style="margin-right: 1rem; float: right;" *ngIf="isSaveReport">
                 <br>
                 <button mat-raised-button color="primary"
-                    (click)="saveReportDiaslog(model, selectedTable, true, '')">Save
+                    (click)="saveReportDialog(model, selectedTable, true, '')">Save
                     Report</button><br>
                 <!-- <button mat-raised-button color="primary">Save As</button> -->
             </div>

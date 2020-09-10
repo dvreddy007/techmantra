@@ -643,3 +643,12 @@ a.pagelink:hover{
     transition: opacity 250ms linear;
     width: 95% !important;
 }
+.mat-progress-bar.mat-accent .mat-progress-bar-buffer{
+  background-color: #d9ead3;
+}
+.mat-progress-bar.mat-accent .mat-progress-bar-fill::after{
+  background-color: #64d17c;
+}
+.mat-list-base .mat-list-item, .mat-list-base .mat-list-option{
+  /* height: 0px !important; */
+}

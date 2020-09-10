@@ -36,7 +36,10 @@ export class AuthenticationService {
             .pipe(map(user => {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 this.decodedToken = jwt_decode(user.token);
+                sessionStorage.setItem('userName', this.decodedToken.userName);
+                sessionStorage.setItem('role', this.decodedToken.role);
                 sessionStorage.setItem('userProfile', this.decodedToken.profilename);
+                sessionStorage.setItem('profileId', this.decodedToken.profileId)
                 sessionStorage.setItem('loggedInUserName', this.decodedToken.firstName + ' ' + this.decodedToken.lastName);
                 sessionStorage.setItem('currentUser', JSON.stringify(user));
                 sessionStorage.setItem('token', JSON.stringify(user.token));
@@ -48,8 +51,15 @@ export class AuthenticationService {
 
     logout() {
         // remove user from local storage and set current user to null
+        sessionStorage.clear();
         sessionStorage.removeItem('currentUser');
         sessionStorage.removeItem('token');
+        sessionStorage.removeItem('userName');
+        sessionStorage.removeItem('profileId');
+        sessionStorage.removeItem('role');
+        sessionStorage.removeItem('userProfile');
+        sessionStorage.removeItem('loggedInUserName');
+        sessionStorage.removeItem('currentUsrEmal');
         this.currentUserSubject.next(null);
     }
 }

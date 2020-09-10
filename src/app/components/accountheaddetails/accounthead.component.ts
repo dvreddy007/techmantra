@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { OrderService } from '../../_services/order.service';
 import * as moment from 'moment';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-accounthead',
@@ -49,7 +50,7 @@ export class AccountheadComponent implements OnInit {
           this.elapsedDays = Math.abs(this.contractdays.diff(this.activeContractStartDate, 'days'));
           console.log('..........' + Date.parse(this.contractdays) + '....' + this.activeContractStartDate + '.......' + this.activeContractEndDate)
           this.contractduration = (this.elapsedDays / this.diffinContractdays) * 100;
-          if (this.contractduration >= 75) {
+          if (this.contractduration >= environment.contractdurationVal) {
             this.changeColor = "warn";
           } else {
             this.changeColor = "primary";

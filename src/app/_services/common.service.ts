@@ -47,6 +47,13 @@ export class CommonService {
     return this.http.post<any>(this._url + '/addUser', userdata);
   }
 
+  // to import all users 
+  getImportUsersList() {
+    return this.http.get<any>(this._url + '/getImportUsersList');
+  }
+
+
+
   /* to save profile */
   saveProfile(profiledata) {
     return this.http.post<any>(this._url + '/createProfile', profiledata);
@@ -114,6 +121,20 @@ export class CommonService {
       return this.http.post<any>(this._url + '/getReportGenerationTableList', {});
     }
 
+  }
+
+  // to get Table list of available tables
+  getTableList() {
+    return this.http.get<any>(this._url + '/getTableList');
+  }
+
+  editReport(reportId) {
+    return this.http.post<any>(this._url + '/editReport', { reportId: reportId });
+  }
+
+  // to get Date columns for all tables
+  getDateColumns() {
+    return this.http.post<any>(this._url + '/getDateColumns', {});
   }
 
   // to get selected table column list
