@@ -44,7 +44,7 @@ export class UploadUsageCSVComponent implements OnInit {
 
         this.uploadService.downloadUsageTemplate().subscribe(response => {
             console.log(JSON.stringify(response));
-            let blob: any = new Blob([response.blob()], { type: 'text/json; charset=utf-8' });
+            let blob: any = new Blob([response], { type: 'application/ms-excel; charset=utf-8' });
             const url = window.URL.createObjectURL(blob);
             window.open(url);
             //window.location.href = response.url;

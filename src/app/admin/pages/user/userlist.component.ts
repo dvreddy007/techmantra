@@ -16,6 +16,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material/table';
 export interface ImportedUser {
+  selection: boolean;
   userId: string;
   userName: string;
   email: string;
@@ -38,11 +39,12 @@ export class UserListComponent implements AfterViewInit, OnInit {
   public error;
   public importedUserList = false;
   public spinner = false;
-  public userList: any[];
+  public dataLength;
+  public resData: any[];
   userForm: FormGroup;
 
-  displayedColumnsselectUsrs: string[] = ['userId', 'email', 'name', 'reportingManager', 'status'];
-  dataSourceselectUsrs = new MatTableDataSource<ImportedUser>(ELEMENT_DATA);
+  displayedColumnsselectUsrs: string[] = ['select', 'userId', 'email', 'name', 'reportingManager', 'status'];
+  dataSourceselectUsrs = new MatTableDataSource();
   selection = new SelectionModel<ImportedUser>(true, []);
 
   successMsg;
@@ -53,10 +55,45 @@ export class UserListComponent implements AfterViewInit, OnInit {
     border: "1px solid #ccc"
   }
 
+  importUser(Import, user) {
+    this.spinner = true;
+    this._commonService.getImportUsersList().subscribe((res) => {
+      if (res.length > 0) {
+        this.dataSourceselectUsrs = res;
+        this.resData = res;
+        this.dataLength = res.length;
+        this.importedUserList = true;
+      }
+      this.spinner = false;
+      console.log(JSON.stringify(this.dataSourceselectUsrs))
+    },
+      (error) => (this.error = error));
+  }
+
+  // import selected users
+  importSelectedUsrs() {
+
+    let selectedUsrs = [];
+    selectedUsrs.push(this.selection);
+    console.log(JSON.stringify(selectedUsrs[0]._selected));
+    this.spinner = true;
+    let data = {
+      adminEmail: sessionStorage.getItem('currentUsrEmal'),
+      usersSelected: selectedUsrs[0]._selected,
+    }
+    this._commonService.importSelectedUsrs(data).subscribe((res) => {
+      if (res.length > 0) {
+        console.log(res);
+      }
+      this.spinner = false;
+    },
+      (error) => (this.error = error));
+  }
+
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
-    const numRows = this.dataSourceselectUsrs.data.length;
+    const numRows = this.dataLength;
     return numSelected === numRows;
   }
 
@@ -64,7 +101,7 @@ export class UserListComponent implements AfterViewInit, OnInit {
   masterToggle() {
     this.isAllSelected() ?
       this.selection.clear() :
-      this.dataSourceselectUsrs.data.forEach(row => this.selection.select(row));
+      this.resData.forEach(row => { console.log(JSON.stringify(row)); this.selection.select(row) });
   }
 
   /** The label for the checkbox on the passed row */
@@ -99,27 +136,10 @@ export class UserListComponent implements AfterViewInit, OnInit {
     });
   }
 
-  onSubmitUsrForm() {
-    console.log(JSON.stringify(this.userForm.value));
-    //alert(JSON.stringify(this.userForm.value))    
-    // this._commonService.saveUsers(this.userForm.value).subscribe(
-    //   (response) => (this.resmessage = response),
-    //   (error) => (error = error)
-    // );
-  }
-
-  // importSelectedUsrs(selected) {
-  //   console.log(JSON.stringify(selected));
-  // }
-
   ngOnInit() {
     this.user = this._router.snapshot.data["user"];
     this.dataSource = new UserDataSource(this._commonService);
     this.dataSource.loadusers('', 'asc', '', 1, 5);
-
-    this.userForm = this.fb.group({
-      userId: ['', [Validators.required]],
-    });
   }
 
   ngAfterViewInit() {
@@ -152,19 +172,6 @@ export class UserListComponent implements AfterViewInit, OnInit {
     return this.userForm.controls[controlName].hasError(errorName);
   };
 
-  importUser(Import, user) {
-    this.spinner = true;
-    this._commonService.getImportUsersList().subscribe((res) => {
-      console.log(JSON.stringify(this.userList));
-      if (res.length > 0) {
-        this.dataSourceselectUsrs = res;
-        this.importedUserList = true;
-      }
-      this.spinner = false;
-    },
-      (error) => (this.error = error));
-  }
-
   onCreateUser(action, obj) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
@@ -177,15 +184,7 @@ export class UserListComponent implements AfterViewInit, OnInit {
     const dialogRef = this.dialog.open(FormdialogComponent, {
       data: obj
     });
-    // dialogRef.afterClosed().subscribe(result => {
-    //     if(result.event === 'Add'){
-    //         this.addRowData(result.data);
-    //     }else if(result.event === 'Update'){
-    //         this.upDateRowData(result.data);
-    //     }else if(result.event === 'Delete'){
-    //         this.deleteRowData(result.data);
-    //     }
-    // });
+
 
     console.log(JSON.stringify(obj));
     const dialogConfig = new MatDialogConfig();
@@ -204,10 +203,6 @@ export class UserListComponent implements AfterViewInit, OnInit {
     })
   }
   addUserData(userObj) {
-    // userObj = 
-    // this._commonService.userSave(userObj).subscribe((dt:any)=>{
-    //   console.log(dt)
-    // })
   }
   updateUserData(user) {
 
@@ -215,4 +210,5 @@ export class UserListComponent implements AfterViewInit, OnInit {
   deleteUserData(user) {
 
   }
+
 }

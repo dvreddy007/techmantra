@@ -30,18 +30,14 @@
                         <div class="spacer30"></div>
                         <div class="row">
                             <div class="col-10">
-                                <!--a draggable element-->
-                                <!-- <div *ngIf="tableSelectedforFields==='account'"> -->
                                 <div class="fields" *ngFor="let columnlist of item.tablefieldModel">
                                     <div cdkDropList class="field pointer shadow-bg" [dndDraggable]="columnlist"
                                         [dndEffectAllowed]="'copy'" (dndEnd)="onDragEnd($event)"
                                         (cdkDropListDropped)="dropColumn($event)" #sourceColumnList="cdkDropList"
                                         [cdkDropListData]="selectedSourceTableColumns">
-                                        <!-- <i [ngClass]="item.icon" class="fa pull-left"></i> -->
                                         <h5>{{columnlist.label}}</h5>
                                     </div>
                                 </div>
-                                <!-- </div> -->
                             </div>
                         </div>
                     </div>
@@ -57,28 +53,22 @@
                     <div>
                         <label>Date Field:</label> &nbsp;
                         <mat-form-field>
-                            <mat-select [(ngModel)]="selectedDateCol" name="column.column_name">
-                                <mat-option><strong>ACCOUNT</strong></mat-option>
-                                <!-- <mat-option *ngFor="let column of columnGroupedByTable.ACCOUNT"
-                                    [value]="column.ACCOUNT">
-                                    {{column.column_name | columnheadercamel}}
-                                </mat-option> -->
-                                <mat-option><strong>ORDERS</strong></mat-option>
-                                <!-- <mat-option *ngFor="let column of columnGroupedByTable.ORDERS" [value]="column.ORDERS">
-                                    {{column.column_name | columnheadercamel}}
-                                </mat-option> -->
-                                <mat-option><strong>OPPORTUNITY</strong></mat-option>
-                                <!-- <mat-option *ngFor="let column of columnGroupedByTable.OPPORTUNITY"
-                                    [value]="column.ORDERS">
-                                    {{column.column_name | columnheadercamel}}
-                                </mat-option> -->
+                            <mat-select [(ngModel)]="selectedDateCol" name="selectedDateCol">
+                                <mat-optgroup *ngFor="let table of tableData" [label]="table">
+                                    <mat-option *ngFor="let columnvalue of columnGroupedByTable[table]"
+                                        (onSelectionChange)="getSelectedTable(columnvalue)"
+                                        [value]="columnvalue.column_name">
+                                        {{columnvalue.column_name | columnheadercamel}}
+                                    </mat-option>
+                                </mat-optgroup>
                             </mat-select>
                         </mat-form-field>
                     </div>
                     <div style="margin-left: 1.5rem;">
                         <label>Range From:</label> &nbsp;
                         <mat-form-field>
-                            <mat-select name="option" (selectionChange)="onDateChange($event.value)">
+                            <mat-select [(ngModel)]="rangeFrom" name="option"
+                                (selectionChange)="onDateChange($event.value)">
                                 <mat-option *ngFor="let option of actions" [value]="option">{{option}}</mat-option>
                             </mat-select>
                         </mat-form-field><br>
@@ -96,46 +86,18 @@
                             <mat-datepicker #datetopicker></mat-datepicker>
                         </mat-form-field>
                     </div>
-                    <!-- <select formControlName="option" (change)="oneHour($event.value)">
-                        <option *ngFor="let option of actions" [value]="option"> {{option}}</option>
-                        
-                    </select><br>
-                    <input type="date"   [ngModel]= "oneHourAgo | date:'yyyy-MM-dd'">
-                    <input type="date"  [ngModel]= "myDate | date:'yyyy-MM-dd'"> -->
                     <div class="field" *ngFor="let item of model.attributes;let i= index;"
                         (dndStart)="onDragStart($event)" (dndCanceled)="onDragCanceled($event)"
                         (dndMoved)="onDragged(item, model.attributes, 'move')" [dndEffectAllowed]="'all'"
                         [dndDraggable]="item" style="margin:0 5rem">
                         <div class="row form-group">
                             <div *ngIf="!success" style="display: flex;">
-                                <!-- <div *ngFor="let item of model.attributes" class="form-group"> -->
                                 <div *ngIf="item.type=='text'">
                                     <label>{{item.label}}</label> <label *ngIf="item.required"
                                         class="text-danger">*</label>
                                     <input type="text" class="form-control" name="{{item.name}}"
                                         placeholder="{{item.placeholder}}" [(ngModel)]="item.value"
                                         [required]="item.required" autocomplete="off">
-                                    <!--<span *ngIf="item.datatype==='date' || item.datatype==='datetime'">
-                                        <label>Filter</label>
-                                        <select name="stringfilter" class="form-control">
-                                            <option value="greaterthan">greater than</option>
-                                            <option value="lessthan">less than</option>
-                                        </select>
-                                    </span>
-                                    <span *ngIf="item.datatype==='varchar'">
-                                        <label>Filter</label>
-                                        <select name="datefilter" class="form-control">
-                                            <option value="like">like</option>
-                                            <option value="equal">equal</option>
-                                        </select>
-                                    </span>
-                                    <span *ngIf="item.datatype==='integer'">
-                                        <label>Filter</label>
-                                        <select name="numberfilter" class="form-control">
-                                            <option value="equals">like</option>
-                                            <option value="greater">equal</option>
-                                        </select>
-                                    </span> -->
                                 </div>
                                 <div *ngIf="item.type=='email'">
                                     <label>{{item.label}}</label> <label *ngIf="item.required"
@@ -200,7 +162,6 @@
                                         <option *ngFor="let v of item.values" [value]="v.value">
                                             {{v.label}}</option>
                                     </select>
-                                    <!-- <small class="form-text text-muted">{{item.description}}</small> -->
                                 </div>
                                 <div *ngIf="item.type=='checkbox'">
                                     <label>{{item.label}}</label> <label *ngIf="item.required"
@@ -250,12 +211,10 @@
                         #selectedTableColumns>
                         <li *ngFor="let item of item.tablefieldModel"
                             style="min-width:10rem; padding: 0 0.5rem; margin: 0 1rem;">
-
                             <mat-checkbox class="example-margin" [(ngModel)]="item.isSelected"
                                 (change)="selectTableforReport($event)">
                                 <span class="displaycollabel">{{item.label }}</span>
                             </mat-checkbox>
-                            <!-- <input type="checkbox" [(ngModel)]="item.columnName"> {{item.columnName | columnheadercamel}} -->
                         </li>
                     </ul>
                 </mat-expansion-panel>
@@ -264,7 +223,6 @@
                 <br>
                 <button mat-raised-button color="primary"
                     (click)="generateReportModel(model, selectedTable, '', '')">Preview</button><br><br>
-                <!-- <button mat-raised-button color="primary">Save As</button> -->
             </div>
             <table mat-table [dataSource]="reportDataSource" style="width: 95%;">
                 <ng-container *ngFor="let columnName of displayedColumns" [matColumnDef]="columnName">
@@ -279,23 +237,8 @@
                 <button mat-raised-button color="primary"
                     (click)="saveReportDialog(model, selectedTable, true, '')">Save
                     Report</button><br>
-                <!-- <button mat-raised-button color="primary">Save As</button> -->
             </div>
             <br><br>
-            <!-- <mat-table class="accounts-table mat-elevation-z8" [dataSource]="dataSource">
-                <ng-container *ngFor="let item of displayedColumns" matColumnDef="{{item}}">
-                    <mat-header-cell *matHeaderCellDef>{{item | columnheadercamel}}</mat-header-cell>
-                    <mat-cell class="description-cell" *matCellDef="let row"><span class="cellnav">{{
-                    row[item]
-                }}</span></mat-cell>
-                </ng-container>
-
-                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-            </mat-table> -->
         </div>
     </div>
-    <!-- <pre *ngIf="show==1 && model">
-          {{model|json}}
-      </pre> -->
 </mat-card>

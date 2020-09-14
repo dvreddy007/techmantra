@@ -1,8 +1,21 @@
 <mat-card-header>
+  <div style="display: flex;">
+  <div>
   <mat-card-subtitle>Order</mat-card-subtitle>
   <mat-card-title>{{orderNumber}}</mat-card-title>
+    </div> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+  <div>
+    <label class="progresslabel mat-card-subtitle">Contract duration: Remaining days to renew Order
+      {{contractremainingDays}}</label>
+    <!-- <progress class="mat-progress-bar" value="{{contractduration}}"></progress> -->
+    <mat-progress-bar mode="determinate" [color]="changeColor" value="{{contractduration}}">
+    </mat-progress-bar>
+  </div>
+  </div>
 </mat-card-header>
+
 <hr>
+
 <mat-card-content>
   <div class="row">
     <div class="col" style=" height: 50px;">

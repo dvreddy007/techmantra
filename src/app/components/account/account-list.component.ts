@@ -120,7 +120,7 @@ export class AccountListComponent implements AfterViewInit, OnInit, OnChanges {
         console.log(resObj);
         this.displayedColumns = Object.keys(resObj);
         this.displayedColumns = this.displayedColumns.filter(function (item) {
-          return item !== 'accountId';
+          return item !== 'accountId' && item !== 'prime';
         });
         console.log(JSON.stringify(this.displayedColumns));
       },

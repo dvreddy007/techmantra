@@ -52,7 +52,10 @@ export class CommonService {
     return this.http.get<any>(this._url + '/getImportUsersList');
   }
 
-
+  // importSelected users method
+  importSelectedUsrs(selectedusrs) {
+    return this.http.post<any>(this._url + '/importUser', selectedusrs);
+  }
 
   /* to save profile */
   saveProfile(profiledata) {
@@ -182,16 +185,6 @@ export class CommonService {
   userSave(data) {
     return this.http.post<any>(this._url + '/getUsers', data)
   }
-
-  //   saveUsers(userdata): Observable<Users[]>{
-  //       debugger;
-  //     return this.http.post(this._url+'/addUser', userdata).pipe(
-  //         map(res => {
-  //         res = res;
-  //         return res['queryResult'];
-  //         })
-  //         );
-  //   }
 
   /* to load all the reports list */
   getReports() {
