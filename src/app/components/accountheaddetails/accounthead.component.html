@@ -11,6 +11,16 @@
       <mat-progress-bar mode="determinate" [color]="changeColor" value="{{contractduration}}">
       </mat-progress-bar>
     </div>
+    <div>
+        <button mat-raised-button color="primary" (click)="addTask()" style="margin-left:100px">
+          <mat-icon>add_task</mat-icon>  Add Task
+        </button>
+      </div>
+      <div>
+        <button mat-raised-button color="primary" (click)="touchPoint()" style="margin-left:30px">
+          <mat-icon>touch_app</mat-icon>  Touch Point
+        </button>
+      </div>
   </div>
 </mat-card-header>
 

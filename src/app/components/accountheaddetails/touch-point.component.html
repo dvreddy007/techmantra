@@ -1,0 +1,65 @@
+<br>
+<button style="float:right" class="close" mat-raised-button (click)="closeDialog()">
+    <mat-icon>close</mat-icon>
+</button>
+<br>
+<br>
+<mat-card>
+    <div class="example-container"><br>
+        <mat-card>
+            <mat-label>Account Name:</mat-label>&nbsp;&nbsp;&nbsp;
+            <span style="color: blue;">{{account.accountName}}</span><br><br>
+            <mat-label>Annual Revenue:</mat-label>&nbsp;&nbsp;&nbsp;
+            <span style="color: blue;">{{account.annualRevenue}}</span>
+        </mat-card>
+        <br>
+        <br>
+        <mat-label>TouchPoint Type:</mat-label>
+        <mat-form-field style="width:50%">
+            <mat-select>
+                <mat-option *ngFor="let ttype of touchType" [value]="ttype.value">
+                    {{ttype.viewValue}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <mat-form-field appearance="fill">
+            <mat-label>TouchPoint Date</mat-label>
+            <input matInput [matDatepicker]="picker1" [formControl]="date">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+        <br>
+        <mat-label>participants:</mat-label>
+        <mat-form-field style="width:100%">
+            <mat-select>
+                <mat-option *ngFor="let food of foods" [value]="food.value">
+                    {{food.viewValue}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <br>
+        <mat-form-field style="width:100%">
+            <mat-label>TouchPoint Subject</mat-label>
+            <input matInput>
+        </mat-form-field>
+        <br>
+        <!-- <editor apiKey="Get your free API key at tiny.cloud and paste it here" [init]="{
+    icons: 'material',
+    skin: 'borderless',
+    plugins: 'wordcount',
+    menubar: false,
+    min_height: 100
+  }"></editor> -->
+        <br>
+        <button mat-raised-button color="primary" (click)="addFiles()">
+            <span class="material-icons">
+                attachment
+            </span> Add Attachment
+        </button>
+        <br>
+        <br>
+
+    </div>
+</mat-card>

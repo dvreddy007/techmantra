@@ -55,6 +55,10 @@ import { UploadService } from './_services/upload.service';
 import { CasesComponent } from './components/account-details/cases/cases.component';
 import { InvoiceModaldialogComponent } from './components/order-item/ord-related/invoice-modaldialog.component';
 // import { DndModule } from 'ngx-drag-drop';
+//import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { AddTaskComponent } from './components/accountheaddetails/add-task.component';
+import { EditorModule } from "@tinymce/tinymce-angular";
+import { TouchPointComponent } from './components/accountheaddetails/touch-point.component';
 
 FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme);
 @NgModule({
@@ -84,7 +88,9 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme);
     TableHeaderCamelCase,
     UploadUsageCSVComponent,
     CasesComponent,
-    InvoiceModaldialogComponent
+    InvoiceModaldialogComponent,
+    AddTaskComponent,
+    TouchPointComponent
   ],
   imports: [
     BrowserModule,
@@ -106,6 +112,8 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme);
     AppRoutingModule,
     AdminModule,
     // DndModule,
+    //ClassicEditor,
+    EditorModule
   ],
   providers: [
     OrderService,

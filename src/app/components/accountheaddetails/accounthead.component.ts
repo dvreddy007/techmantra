@@ -2,6 +2,9 @@ import { Component, OnInit, Input } from '@angular/core';
 import { OrderService } from '../../_services/order.service';
 import * as moment from 'moment';
 import { environment } from 'src/environments/environment';
+import { MatDialog } from '@angular/material/dialog';
+import { AddTaskComponent } from './add-task.component';
+import { TouchPointComponent } from './touch-point.component';
 
 @Component({
   selector: 'app-accounthead',
@@ -9,8 +12,8 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./accounthead.component.css']
 })
 export class AccountheadComponent implements OnInit {
-
-  constructor(private _orderService: OrderService) { }
+  dialogValue;
+  constructor(private _orderService: OrderService,public dialog: MatDialog) { }
   @Input() accountParams: string;
   public url
   public accountObj;
@@ -69,4 +72,34 @@ export class AccountheadComponent implements OnInit {
 
     //this.openWebsite();
   }
+
+  addTask(){
+    
+      const dialogRef = this.dialog.open(AddTaskComponent, {
+        width: '95%',
+        maxHeight: '90vh',
+        backdropClass: 'custom-dialog-backdrop-class',
+        panelClass: 'custom-dialog-panel-class',
+        data: { pageValue: this.accountObj }
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        this.dialogValue = result.data;
+      });
+  
+    
+  }
+
+  touchPoint(){
+    const dialogRef = this.dialog.open(TouchPointComponent, {
+      width: '95%',
+      maxHeight: '90vh',
+      backdropClass: 'custom-dialog-backdrop-class',
+      panelClass: 'custom-dialog-panel-class',
+      data: { pageValue: this.accountObj }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.dialogValue = result.data;
+    });  }
 }

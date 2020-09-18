@@ -106,7 +106,10 @@ export class OpportunityListComponent implements AfterViewInit, OnInit {
       ).subscribe();
 
     // reset the paginator after sorting
-    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 1);
+    this.sort.sortChange.subscribe(() => this.loadOpportunitiesOfCols(this.viewName, this.opportunityinput.nativeElement.value, this.sort.direction,
+      this.sort.active,
+      this.paginator.pageIndex = 1,
+      this.paginator.pageSize));
 
     // on sort or paginate events, load a new page
     combineLatest(this.sort.sortChange, this.paginator.page)

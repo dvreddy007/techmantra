@@ -1,6 +1,5 @@
 <mat-card>
   {{ errorMessage }}
-
   <!-- New part: this is the search box -->
   <mat-input-container>
     <input matInput placeholder="Search accounts" [(ngModel)]="value" #accountinput class="searchinput" />
@@ -13,19 +12,36 @@
   <div class="spinner-container loading-indicator" *ngIf="dataSource.loading$ | async">
     <mat-spinner></mat-spinner>
   </div>
-
   <mat-table class="accounts-table mat-elevation-z8" [dataSource]="dataSource" matSort matSortDirection="asc"
     matSortDisableClear>
     <ng-container *ngFor="let item of displayedColumns" matColumnDef="{{item}}">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>{{item | tableheadercamel}}</mat-header-cell>
-      <mat-cell class="description-cell" *matCellDef="let row"><span class="cellnav">{{
-        row[item]
-      }}</span></mat-cell>
+      <div *ngIf="item !== 'prime'">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          <span *ngIf="item !== 'prime'">{{item | tableheadercamel}}
+          </span>
+        </mat-header-cell>
+      </div>
+      <div *ngIf="item == 'prime'">
+        <mat-header-cell *matHeaderCellDef style="width: 50px !important;" mat-sort-header>Prime
+        </mat-header-cell>
+      </div>
+      <mat-cell style="width: 50px !important;" class="description-cell" *matCellDef="let row"
+        (click)="getSelectedRow(row, item)">
+        <span class="cellnav" *ngIf="item !== 'prime'">
+          {{row[item]}}
+        </span>
+        <span class="material-icons pointer" *ngIf="item == 'prime' && row[item]==true">
+          star_rate
+        </span>
+        <span class="material-icons pointer" *ngIf="item == 'prime' && row[item]==false">
+          star_border
+        </span>
+      </mat-cell>
     </ng-container>
-
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns" (click)="getSelectedRow(row)"></mat-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns">
+    </mat-row>
   </mat-table>
-  <mat-paginator [pageSizeOptions]="[5, 10, 20, 50, 100, 150]" [pageSize]="10" [length]="20" showFirstLastButtons>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20, 50, 100, 150]" [pageSize]="10" [length]="20"  showFirstLastButtons>
   </mat-paginator>
 </mat-card>

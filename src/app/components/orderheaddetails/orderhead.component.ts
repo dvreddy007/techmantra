@@ -35,7 +35,6 @@ export class OrderHeaderComponent implements OnInit {
       .subscribe((res) => {
         this.orderObj = res[0];
         if (this.orderObj !== undefined || this.orderObj !== null) {
-
         this.accountName = this.orderObj.account;
         this.orderNumber = this.orderObj.orderNumber;
         this.estimatedInstallDate = this.orderObj.estimatedInstallDate;

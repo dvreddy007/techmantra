@@ -56,6 +56,7 @@ export class AccountListComponent implements AfterViewInit, OnInit, OnChanges {
     this.loadAccountsforCols(viewName, filter, sortOrder, sortBy, pageNumber, pageSize);
     this.dataSource = new AccountDataSource(this._orderService);
     this.dataSource.loadaccounts(viewName, filter, sortOrder, sortBy, pageNumber, pageSize);
+    
   }
 
   ngAfterViewInit() {
@@ -75,7 +76,10 @@ export class AccountListComponent implements AfterViewInit, OnInit, OnChanges {
       .subscribe();
 
     // reset the paginator after sorting
-    this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 1));
+    this.sort.sortChange.subscribe(() => this.loadAccountsOfCols(this.viewName, this.accountinput.nativeElement.value, this.sort.direction,
+      this.sort.active,
+      this.paginator.pageIndex = 1,
+      this.paginator.pageSize));
 
     // on sort or paginate events, load a new page
     combineLatest(this.sort.sortChange, this.paginator.page)
@@ -91,14 +95,17 @@ export class AccountListComponent implements AfterViewInit, OnInit, OnChanges {
 
   }
 
-  getSelectedRow(row) {
-    console.log(JSON.stringify(row));
-    let rowCols = Object.keys(row);
-    let accountnamecol = rowCols.find((item) => {
-      if (item === 'accountId') {
-        this.route.navigate(['account-details'], { queryParams: row });
-      }
-    });
+  getSelectedRow(row, item) {
+    if (item != 'prime') {
+      let rowCols = Object.keys(row);
+      let accountnamecol = rowCols.find((item) => {
+        if (item === 'accountId') {
+          this.route.navigate(['account-details'], { queryParams: row });
+        }
+      });
+    } else {
+      row.prime = !row.prime
+    }
   }
   loadAccountsforCols(viewName, filter, sortOrder, sortBy, pageNumber, pageSize) {
     let data = {
@@ -120,7 +127,7 @@ export class AccountListComponent implements AfterViewInit, OnInit, OnChanges {
         console.log(resObj);
         this.displayedColumns = Object.keys(resObj);
         this.displayedColumns = this.displayedColumns.filter(function (item) {
-          return item !== 'accountId' && item !== 'prime';
+          return item !== 'accountId';
         });
         console.log(JSON.stringify(this.displayedColumns));
       },

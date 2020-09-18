@@ -138,13 +138,15 @@ export class NewReportComponent implements OnInit {
       this.reportGenSelectedTableList.forEach((item) => {
         this.viewService.getTableColumns(item).subscribe((response) => {
           this.tablefieldModel = response;
-          this.tablefieldModel.forEach((item, index) => {
-            if (this.editReportObj.displayColumns.includes(item.fieldName)) {
-              item.isSelected = true
-            } else {
-              item.isSelected = false
-            }
-          })
+          if (this.editReportObj) {
+            this.tablefieldModel.forEach((item, index) => {
+              if (this.editReportObj.displayColumns.includes(item.fieldName)) {
+                item.isSelected = true
+              } else {
+                item.isSelected = false
+              }
+            })
+          }
           this.selectedSourceTableColumns = response;
           this.selectedDisplayColumns = response;
           this.spinner = false;
@@ -318,22 +320,23 @@ export class NewReportComponent implements OnInit {
   ngOnInit() {
     this._router.queryParams.subscribe(params => {
       console.log(JSON.stringify(params.reportId));
-      this.reportId = params.reportId;
-      this.spinner = true;
-      this.viewService.editReport(this.reportId).subscribe((response) => {
-        this.editReportObj = response[0].reportObject;
-        this.selectedDateCol = this.editReportObj.date_field.column_name;
-        this.rangeFrom = this.editReportObj.range_from
-        this.onDateChange(this.rangeFrom)
-        this.getRelatedTables(this.editReportObj.selectedTable);
-        this.selectedTable = this.editReportObj.selectedTable;
-        this.model = this.editReportObj.model;
-        console.log("The edit report obj is .... " + JSON.stringify(this.editReportObj.selectedTable))
-        this.spinner = false;
-      },
-        (error) => (this.error = error)
-      );
-
+      if (params.reportId) {
+        this.reportId = params.reportId;
+        this.spinner = true;
+        this.viewService.editReport(this.reportId).subscribe((response) => {
+          this.editReportObj = response[0].reportObject;
+          this.selectedDateCol = this.editReportObj.date_field.column_name;
+          this.rangeFrom = this.editReportObj.range_from
+          this.onDateChange(this.rangeFrom)
+          this.getRelatedTables(this.editReportObj.selectedTable);
+          this.selectedTable = this.editReportObj.selectedTable;
+          this.model = this.editReportObj.model;
+          console.log("The edit report obj is .... " + JSON.stringify(this.editReportObj.selectedTable))
+          this.spinner = false;
+        },
+          (error) => (this.error = error)
+        );
+      }
     })
 
 

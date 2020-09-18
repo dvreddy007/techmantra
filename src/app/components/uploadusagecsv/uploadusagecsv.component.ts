@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 // import { MatDialogRef } from '@angular/material/dialog';
 import { UploadService } from '../../_services/upload.service';
 import { forkJoin } from 'rxjs';
+import { saveAs } from 'file-saver';
 
 @Component({
     selector: 'app-uploadusagecsv',
@@ -44,11 +45,11 @@ export class UploadUsageCSVComponent implements OnInit {
 
         this.uploadService.downloadUsageTemplate().subscribe(response => {
             console.log(JSON.stringify(response));
-            let blob: any = new Blob([response], { type: 'application/ms-excel; charset=utf-8' });
+            let blob: any = new Blob([response], { type: 'text/csv; charset=utf-8' });
             const url = window.URL.createObjectURL(blob);
-            window.open(url);
-            //window.location.href = response.url;
-            //fileSaver.saveAs(blob, 'employees.json');
+            // window.open(url);
+            // window.location.href = response.url;
+            saveAs(blob, 'myfile.csv');
         }), error => console.log('Error downloading the file'),
             () => console.info('File downloaded successfully');
     }
