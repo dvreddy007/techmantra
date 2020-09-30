@@ -1,65 +1,58 @@
-<br>
+<span style="font-size: 1.5rem;">Add Touch Point</span>
 <button style="float:right" class="close" mat-raised-button (click)="closeDialog()">
     <mat-icon>close</mat-icon>
 </button>
-<br>
-<br>
-<mat-card>
-    <div class="example-container"><br>
-        <mat-card>
-            <mat-label>Account Name:</mat-label>&nbsp;&nbsp;&nbsp;
-            <span style="color: blue;">{{account.accountName}}</span><br><br>
-            <mat-label>Annual Revenue:</mat-label>&nbsp;&nbsp;&nbsp;
-            <span style="color: blue;">{{account.annualRevenue}}</span>
-        </mat-card>
-        <br>
-        <br>
-        <mat-label>TouchPoint Type:</mat-label>
-        <mat-form-field style="width:50%">
-            <mat-select>
-                <mat-option *ngFor="let ttype of touchType" [value]="ttype.value">
-                    {{ttype.viewValue}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <mat-form-field appearance="fill">
-            <mat-label>TouchPoint Date</mat-label>
-            <input matInput [matDatepicker]="picker1" [formControl]="date">
-            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-            <mat-datepicker #picker1></mat-datepicker>
-        </mat-form-field>
-        <br>
-        <mat-label>participants:</mat-label>
-        <mat-form-field style="width:100%">
-            <mat-select>
-                <mat-option *ngFor="let food of foods" [value]="food.value">
-                    {{food.viewValue}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-        <br>
-        <mat-form-field style="width:100%">
-            <mat-label>TouchPoint Subject</mat-label>
-            <input matInput>
-        </mat-form-field>
-        <br>
-        <!-- <editor apiKey="Get your free API key at tiny.cloud and paste it here" [init]="{
-    icons: 'material',
-    skin: 'borderless',
-    plugins: 'wordcount',
-    menubar: false,
-    min_height: 100
-  }"></editor> -->
-        <br>
-        <button mat-raised-button color="primary" (click)="addFiles()">
-            <span class="material-icons">
-                attachment
-            </span> Add Attachment
-        </button>
-        <br>
-        <br>
-
-    </div>
-</mat-card>
+<br><br>
+<div class="example-container"><br>
+    <mat-label>Account Name:</mat-label>
+    <span style="color: blue;"> {{account.accountName}}</span>
+    <mat-label style="margin-left: 2rem;">Annual Revenue:</mat-label>
+    <span style="color: blue;"> $ {{account.annualRevenue  | currency:'USD'}}</span>
+    <br>
+    <br>
+    <mat-label>TouchPoint Type:</mat-label>
+    <mat-form-field style="width:50%">
+        <mat-select [(ngModel)]="selectedttype" name="selectedttype">
+            <mat-option *ngFor="let ttype of touchType" [value]="ttype.value">
+                {{ttype.viewValue}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill" style="margin-left:20px">
+        <mat-label>TouchPoint Date</mat-label>
+        <input matInput [(ngModel)]="ttdate" [matDatepicker]="picker1" [formControl]="date">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+    <ngx-text-editor [placeholder]="'Enter text here...'" [spellcheck]="true" [(ngModel)]="htmlContent">
+    </ngx-text-editor>
+    <br>
+    <mat-label>participants:</mat-label>
+    <mat-form-field style="width:100%">
+        <mat-select [(ngModel)]="participantsList" multiple>
+            <mat-option *ngFor="let participant of participants" [value]="participant.value">
+                {{participant.viewValue}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-form-field style="width:100%">
+        <mat-label>TouchPoint Subject</mat-label>
+        <input matInput [(ngModel)]="ttSubject">
+    </mat-form-field>
+    <br>
+    <!-- <ngx-text-editor [placeholder]="'Enter text here...'" [spellcheck]="true" [(ngModel)]="htmlContent">
+        </ngx-text-editor> -->
+    <br>
+    <input type="file" #file style="display: none" (change)="onFilesAdded()" accept=".csv" />
+    <button mat-raised-button color="primary" (click)="addFiles()">
+        <span class="material-icons">
+            attachment
+        </span> Add Attachment
+    </button> <span style="float: right;">
+        <span class="success"> {{resMessage}}</span>
+        <button mat-raised-button color="secondary" (click)="closeDialog()">Close</button>
+        <button style="margin-left: 15px;" mat-raised-button color="primary"
+            (click)="createTouchPoint()">Submit</button><br><br>
+    </span>
+</div>

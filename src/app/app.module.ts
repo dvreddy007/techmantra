@@ -59,6 +59,7 @@ import { InvoiceModaldialogComponent } from './components/order-item/ord-related
 import { AddTaskComponent } from './components/accountheaddetails/add-task.component';
 import { EditorModule } from "@tinymce/tinymce-angular";
 import { TouchPointComponent } from './components/accountheaddetails/touch-point.component';
+import { NgxTextEditorModule } from 'ngx-text-editor';
 
 FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme);
 @NgModule({
@@ -113,6 +114,7 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme);
     AdminModule,
     // DndModule,
     //ClassicEditor,
+    NgxTextEditorModule,
     EditorModule
   ],
   providers: [

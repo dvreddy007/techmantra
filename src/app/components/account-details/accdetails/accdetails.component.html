@@ -83,3 +83,18 @@
         <!-- <mat-icon matSuffix class="icon">mode_edit</mat-icon> -->
     </mat-form-field>
 </form>
+<mat-form-field class="full-width">
+    <mat-label>CSM Primary Key</mat-label>
+    <input [(ngModel)]="csmPrimaryKey" matInput [value]="csmPrimaryKey">
+    <!-- <mat-icon matSuffix class="icon">mode_edit</mat-icon> -->
+</mat-form-field>
+<mat-form-field class="full-width">
+    <mat-label>CSM Secondary Key</mat-label>
+    <input [(ngModel)]="csmSecondaryKey" matInput [value]="csmSecondaryKey">
+    <!-- <mat-icon matSuffix class="icon">mode_edit</mat-icon> -->
+</mat-form-field>
+<mat-form-field class="full-width" hidden="true">
+    <input [(ngModel)]="accountId" matInput [value]="accountId">
+</mat-form-field>
+<button mat-raised-button color="primary" (click)="editKey()">Update</button>
+<p style="text-align: right;" class="success">{{keySuccessResp}}</p>

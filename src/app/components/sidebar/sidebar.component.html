@@ -74,8 +74,30 @@
             </li>
             <li>
               <a [routerLink]="['user-profile']" style="cursor: pointer;"><i
-                  class="material-icons">bubble_chart</i><span>Charts</span></a>
+                  class="material-icons">bubble_chart</i><span>Customer Info</span></a>
               <hr />
+              <ul>
+                <li><a routerLinkActive='active' [routerLinkActiveOptions]="{exact:true}"
+                    [routerLink]="['account-list']" class="toplinks">
+                    <mat-icon>list</mat-icon> Accounts
+                  </a></li>
+                <hr />
+                <li><a routerLinkActive='active' [routerLinkActiveOptions]="{exact:true}"
+                    [routerLink]="['opportunitylist']" class="toplinks">
+                    <mat-icon>add_shopping_cart</mat-icon> Opportunities
+                  </a></li>
+                <hr />
+                <li><a routerLinkActive='active' [routerLinkActiveOptions]="{exact:true}" [routerLink]="['order-list']"
+                    class="toplinks">
+                    <mat-icon>shopping_cart</mat-icon> Orders
+                  </a></li>
+                <hr />
+                <li><a routerLinkActive='active' [routerLinkActiveOptions]="{exact:true}"
+                    [routerLink]="['uploadusagaecsv']" class="toplinks">
+                    <mat-icon>data_usage</mat-icon> Usage
+                  </a></li>
+                <hr />
+              </ul>
             </li>
             <li>
               <a [routerLink]="['dashboardhome']" style="cursor: pointer;"><i

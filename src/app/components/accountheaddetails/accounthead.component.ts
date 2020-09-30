@@ -13,7 +13,7 @@ import { TouchPointComponent } from './touch-point.component';
 })
 export class AccountheadComponent implements OnInit {
   dialogValue;
-  constructor(private _orderService: OrderService,public dialog: MatDialog) { }
+  constructor(private _orderService: OrderService, public dialog: MatDialog) { }
   @Input() accountParams: string;
   public url
   public accountObj;
@@ -73,26 +73,10 @@ export class AccountheadComponent implements OnInit {
     //this.openWebsite();
   }
 
-  addTask(){
-    
-      const dialogRef = this.dialog.open(AddTaskComponent, {
-        width: '95%',
-        maxHeight: '90vh',
-        backdropClass: 'custom-dialog-backdrop-class',
-        panelClass: 'custom-dialog-panel-class',
-        data: { pageValue: this.accountObj }
-      });
-  
-      dialogRef.afterClosed().subscribe(result => {
-        this.dialogValue = result.data;
-      });
-  
-    
-  }
+  addTask() {
 
-  touchPoint(){
-    const dialogRef = this.dialog.open(TouchPointComponent, {
-      width: '95%',
+    const dialogRef = this.dialog.open(AddTaskComponent, {
+      width: '75%',
       maxHeight: '90vh',
       backdropClass: 'custom-dialog-backdrop-class',
       panelClass: 'custom-dialog-panel-class',
@@ -101,5 +85,22 @@ export class AccountheadComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.dialogValue = result.data;
-    });  }
+    });
+
+
+  }
+
+  touchPoint() {
+    const dialogRef = this.dialog.open(TouchPointComponent, {
+      width: '75%',
+      maxHeight: '90vh',
+      backdropClass: 'custom-dialog-backdrop-class',
+      panelClass: 'custom-dialog-panel-class',
+      data: { pageValue: this.accountObj }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.dialogValue = result.data;
+    });
+  }
 }

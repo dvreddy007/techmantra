@@ -14,4 +14,6 @@ export interface Account {
     annualRevenue: number;
     createdDate: Date;
     lastModifiedDate: Date;
+    csmPrimaryKey:string,
+    csmSecondaryKey:string
 }

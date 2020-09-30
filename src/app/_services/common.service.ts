@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { map } from 'rxjs/operators';
 import { Users } from '../_helpers/user';
+import { query } from '@angular/animations';
 
 @Injectable({
   providedIn: 'root',
@@ -61,6 +62,17 @@ export class CommonService {
   saveProfile(profiledata) {
     return this.http.post<any>(this._url + '/createProfile', profiledata);
   }
+
+  // to add task
+  createTask(data) {
+    return this.http.post<any>(this._url + '/createTask', data);
+  }
+
+  // create touch point
+  createTouchPoint(data) {
+    return this.http.post<any>(this._url + '/createTouchPoint', data);
+  }
+
 
   /* to update profile permissions */
   updateProfile(profiledata) {
@@ -194,5 +206,9 @@ export class CommonService {
   /* to load the report of the report */
   getReport(query) {
     return this.http.post<any>(this._url + '/getReportResult', { "reportQuery": query });
+  }
+
+  editAccountDetails(selectedObjKey){
+    return this.http.post<any>(this._url + '/editAccount',selectedObjKey);
   }
 }

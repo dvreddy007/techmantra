@@ -17,7 +17,7 @@ export class UploadService {
     // to download usage template   
 
     downloadUsageTemplate(): Observable<Blob> {
-        return this.http.get(this._url + '/downloadUsageTemplate' , {responseType: 'blob'});
+        return this.http.get(this._url + '/downloadUsageTemplate', { responseType: 'blob' });
     }
 
     // to upload the usage template

@@ -4,6 +4,8 @@ import { OrderService } from '../../../_services/order.service';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import * as moment from 'moment';
+import { CommonService } from 'src/app/_services/common.service';
+import { ContentObserver } from '@angular/cdk/observers';
 @Component({
   selector: 'app-accdetails',
   templateUrl: './accdetails.component.html',
@@ -14,10 +16,15 @@ export class AccdetailsComponent implements OnInit {
   formattedAmount;
   formDate: any;
   amount;
-  constructor(private currencyPipe: CurrencyPipe, private _router: ActivatedRoute, private route: Router, private fb: FormBuilder, private _orderService: OrderService) {
+  selectedValue: string;
+  keySuccessResp
+  public selectedObjKey = {};
+  public accountId = "";
+  public csmPrimaryKey = "";
+  public csmSecondaryKey = "";
+  constructor(private currencyPipe: CurrencyPipe, private _router: ActivatedRoute, private route: Router, private fb: FormBuilder, private _orderService: OrderService, private commonService: CommonService) {
   }
   public sub;
-  public accountid;
   public accountDetails;
   @Input() accountParams: string;
 
@@ -33,6 +40,7 @@ export class AccdetailsComponent implements OnInit {
         console.log(JSON.stringify(res[0]));
       });
   };
+
   formatMoney(value) {
     const temp = `${value}`.replace(/\,/g, "");
     return this.currencyPipe.transform(temp).replace("$", "");
@@ -63,15 +71,33 @@ export class AccdetailsComponent implements OnInit {
       territory: [''],
       annualRevenue: [''],
       createdDate: [''],
-      lastModifiedDate: ['']
+      lastModifiedDate: [''],
+      // selectedKey: [''],
+      csmPrimaryKey: [''],
+      csmSecondaryKey: ['']
     })
 
     this._router.queryParams.subscribe(params => {
-      this.accountid = params['accountId'];
+      this.accountId = params['accountId'];
+
       console.log("the account id is from the param is " + JSON.stringify(params.accountId));
       this.getFormData(params.accountId)
     })
     this.accountForm.disable();
+    console.log(this.accountDetails.selectedKey)
   }
-
+  editKey() {
+    this.selectedObjKey = {
+      csmPrimaryKey: this.csmPrimaryKey,
+      csmSecondaryKey: this.csmSecondaryKey,
+      accountId: this.accountId
+    }
+    console.log(this.selectedObjKey);
+    this.commonService.editAccountDetails(this.selectedObjKey).subscribe(res => {
+      this.keySuccessResp = res.message;
+      console.log(this.keySuccessResp)
+    }), (error => {
+      console.log(error)
+    })
+  }
 }
