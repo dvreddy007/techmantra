@@ -60,6 +60,7 @@ import { AddTaskComponent } from './components/accountheaddetails/add-task.compo
 import { EditorModule } from "@tinymce/tinymce-angular";
 import { TouchPointComponent } from './components/accountheaddetails/touch-point.component';
 import { NgxTextEditorModule } from 'ngx-text-editor';
+import { DashboardContentComponent } from './dashboard/dashboardhome/dashboardcontent.component'
 
 FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme);
 @NgModule({
@@ -91,7 +92,8 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme);
     CasesComponent,
     InvoiceModaldialogComponent,
     AddTaskComponent,
-    TouchPointComponent
+    TouchPointComponent,
+    DashboardContentComponent
   ],
   imports: [
     BrowserModule,

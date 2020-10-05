@@ -72,58 +72,80 @@
               <a [routerLink]="['order-list']"><i class="material-icons">view_module</i><span>Tables</span></a>
               <hr />
             </li>
-            <li>
-              <a [routerLink]="['user-profile']" style="cursor: pointer;"><i
-                  class="material-icons">bubble_chart</i><span>Customer Info</span></a>
-              <hr />
-              <ul>
-                <li><a routerLinkActive='active' [routerLinkActiveOptions]="{exact:true}"
-                    [routerLink]="['account-list']" class="toplinks">
+            <mat-nav-list>
+              <a mat-list-item (click)="onItemSelected('customer')" class="customerinfo">
+                <i class="material-icons">bubble_chart</i>
+                  Customer Info
+                <span fxFlex>
+                  <span fxFlex></span>
+                  <mat-icon [@indicatorRotate]="expanded ? 'expanded': 'collapsed'">
+                    expand_more
+                  </mat-icon>
+                </span>
+              </a>
+              <div *ngIf="expanded">
+                <mat-nav-list>
+                  <a mat-list-item routerLinkActive='active' [routerLinkActiveOptions]="{exact:true}"
+                        [routerLink]="['account-list']" class=" menu-list-item toplinks">
                     <mat-icon>list</mat-icon> Accounts
-                  </a></li>
-                <hr />
-                <li><a routerLinkActive='active' [routerLinkActiveOptions]="{exact:true}"
-                    [routerLink]="['opportunitylist']" class="toplinks">
+                  </a>
+                </mat-nav-list>
+                <mat-nav-list>
+                  <a mat-list-item  routerLinkActive='active' [routerLinkActiveOptions]="{exact:true}" [routerLink]="['opportunitylist']" class="menu-list-item toplinks">
                     <mat-icon>add_shopping_cart</mat-icon> Opportunities
-                  </a></li>
-                <hr />
-                <li><a routerLinkActive='active' [routerLinkActiveOptions]="{exact:true}" [routerLink]="['order-list']"
-                    class="toplinks">
+                  </a>
+                </mat-nav-list>
+                <mat-nav-list>
+                  <a mat-list-item routerLinkActive='active' [routerLinkActiveOptions]="{exact:true}" [routerLink]="['order-list']" class="menu-list-item toplinks">
                     <mat-icon>shopping_cart</mat-icon> Orders
-                  </a></li>
-                <hr />
-                <li><a routerLinkActive='active' [routerLinkActiveOptions]="{exact:true}"
-                    [routerLink]="['uploadusagaecsv']" class="toplinks">
+                  </a>
+                </mat-nav-list>
+                <mat-nav-list>
+                  <a mat-list-item routerLinkActive='active' [routerLinkActiveOptions]="{exact:true}" [routerLink]="['uploadusagaecsv']" class="menu-list-item toplinks">
                     <mat-icon>data_usage</mat-icon> Usage
-                  </a></li>
-                <hr />
-              </ul>
-            </li>
+                  </a>
+                </mat-nav-list>
+              </div>
+            </mat-nav-list>
             <li>
               <a [routerLink]="['dashboardhome']" style="cursor: pointer;"><i
                   class="material-icons">dashboard</i><span>Dashboard</span></a>
               <hr />
             </li>
-            <li *ngIf="isAdmin">
-              <a [routerLink]="['admin/userlist']" style="cursor: pointer;"><i
-                  class="material-icons">supervised_user_circle</i><span>User Management</span></a>
-              <hr />
-            </li>
-            <li *ngIf="isAdmin">
-              <a [routerLink]="['admin/rolemanagement']" style="cursor: pointer;"><i
-                  class="material-icons">assignment_ind</i><span>Role Management</span></a>
-              <hr />
-            </li>
-            <li *ngIf="isAdmin">
-              <a [routerLink]="['admin/profilelist']" style="cursor: pointer;"><i
-                  class="material-icons">people_alt</i><span>Profile Management</span></a>
-              <hr />
-            </li>
-            <li *ngIf="isAdmin">
-              <a [routerLink]="['admin/viewslist']" style="cursor: pointer;"><i
-                  class="material-icons">preview</i><span>View Management</span></a>
-              <hr />
-            </li>
+            <mat-nav-list *ngIf="isAdmin">
+              <a mat-list-item (click)="onItemSelected('management')" class="customerinfo">
+                <i class="material-icons">bubble_chart</i>
+                  CSM Management
+                <span fxFlex>
+                  <span fxFlex></span>
+                  <mat-icon [@indicatorRotate]="managementexpanded ? 'expanded': 'collapsed'">
+                    expand_more
+                  </mat-icon>
+                </span>
+              </a>
+              <div *ngIf="managementexpanded">
+                <mat-nav-list>
+                  <a mat-list-item [routerLink]="['admin/userlist']" style="cursor: pointer;"><i
+                  class="material-icons">supervised_user_circle</i><span>User</span></a>
+                  <hr />
+                </mat-nav-list>
+                <mat-nav-list>
+                  <a mat-list-item [routerLink]="['admin/rolemanagement']" style="cursor: pointer;"><i
+                  class="material-icons">assignment_ind</i><span>Role</span></a>
+                  <hr />
+                </mat-nav-list>
+                <mat-nav-list>
+                  <a mat-list-item [routerLink]="['admin/profilelist']" style="cursor: pointer;"><i
+                  class="material-icons">people_alt</i><span>Profile</span></a>
+                  <hr />
+                </mat-nav-list>
+                <mat-nav-list>
+                  <a mat-list-item [routerLink]="['admin/viewslist']" style="cursor: pointer;"><i
+                  class="material-icons">preview</i><span>View</span></a>
+                  <hr />
+                </mat-nav-list>
+              </div>
+            </mat-nav-list>
           </ul>
         </div>
       </div>

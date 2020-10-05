@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
 declare const $: any;
 declare interface RouteInfo {
@@ -35,8 +36,21 @@ export const ROUTES: RouteInfo[] = [
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css'],
+   animations: [
+    trigger('indicatorRotate', [
+      state('collapsed', style({transform: 'rotate(0deg)'})),
+      state('expanded', style({transform: 'rotate(180deg)'})),
+      transition('expanded <=> collapsed',
+        animate('225ms cubic-bezier(0.4,0.0,0.2,1)')
+      ),
+    ],
+    ),
+    ]
 })
 export class SidebarComponent implements OnInit {
+expanded: boolean;
+managementexpanded: boolean;
+  @HostBinding('attr.aria-expanded') ariaExpanded = this.expanded
   menuItems: any[];
   public loggedInUserName;
   public isAdmin: boolean = false;
@@ -50,6 +64,13 @@ export class SidebarComponent implements OnInit {
     this.loggedInUserName = sessionStorage
       .getItem('loggedInUserName')
       .replace(/^"(.*)"$/, '$1');
+  }
+  onItemSelected(type) {
+      if (type === 'management') {
+        this.managementexpanded = !this.managementexpanded
+      } else {
+        this.expanded = !this.expanded;
+      }
   }
   isMobileMenu() {
     if ($(window).width() > 991) {

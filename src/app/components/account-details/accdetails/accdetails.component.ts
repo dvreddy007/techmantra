@@ -74,7 +74,9 @@ export class AccdetailsComponent implements OnInit {
       lastModifiedDate: [''],
       // selectedKey: [''],
       csmPrimaryKey: [''],
-      csmSecondaryKey: ['']
+      csmSecondaryKey: [''],
+      onboardingStage: [''],
+      customerJourneyStage: ['']
     })
 
     this._router.queryParams.subscribe(params => {

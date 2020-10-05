@@ -13,7 +13,7 @@
     <mat-label>TouchPoint Type:</mat-label>
     <mat-form-field style="width:50%">
         <mat-select [(ngModel)]="selectedttype" name="selectedttype">
-            <mat-option *ngFor="let ttype of touchType" [value]="ttype.value">
+            <mat-option *ngFor="let ttype of touchType" [value]="ttype.value" (onSelectionChange)="changeSuccessFlow(ttype)">
                 {{ttype.viewValue}}
             </mat-option>
         </mat-select>
@@ -36,6 +36,16 @@
         </mat-select>
     </mat-form-field>
     <br>
+    <div>
+            <mat-label>Success Flow:</mat-label>
+            <mat-form-field style="width:100%">
+                <mat-select [(ngModel)]="singleSuccessFlow" name="singleSuccessFlow">
+                    <mat-option *ngFor="let flow of successFlow" [value]="flow.value">
+                        {{flow.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
     <mat-form-field style="width:100%">
         <mat-label>TouchPoint Subject</mat-label>
         <input matInput [(ngModel)]="ttSubject">

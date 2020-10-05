@@ -9,6 +9,10 @@ interface Participants {
   value: string;
   viewValue: string;
 }
+interface successFlow {
+  value: string;
+  viewValue: string;
+}
 interface touch {
   value: string;
   viewValue: string;
@@ -28,6 +32,7 @@ export class TouchPointComponent implements OnInit {
   public participantsList;
   public ttSubject;
   public resMessage;
+  public singleSuccessFlow;
   constructor(public dialogRef: MatDialogRef<TouchPointComponent>, private viewService: CommonService,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any) {
     this.account = data.pageValue
@@ -35,7 +40,15 @@ export class TouchPointComponent implements OnInit {
 
   }
   date = new FormControl(new Date());
-
+  successFlow: successFlow[] = [
+    { value: 'support', viewValue: 'Support' },
+    { value: 'renewal', viewValue: 'Renewal' },
+    { value: 'upsell', viewValue: 'Upsell' },
+    { value: 'onboarding', viewValue: 'Onboarding' },
+    { value: 'escalation', viewValue: 'Escalation' },
+    { value: 'adaption', viewValue: 'Adaption' },
+    { value: 'risk', viewValue: 'Risk' }
+  ];
   participants: Participants[] = [
     { value: 'sridharmudiraj.sridhar@gmail.com', viewValue: 'sridharmudiraj.sridhar@gmail.com' },
     { value: 'sachinsrt22@gmail.com', viewValue: 'sachinsrt22@gmail.com' },
@@ -47,10 +60,13 @@ export class TouchPointComponent implements OnInit {
   ];
 
   touchType: touch[] = [
+    { value: 'Welcome call', viewValue: 'Welcome call' },
+    { value: 'User training', viewValue: 'User training' },
+    { value: 'Implementation', viewValue: 'Implementation' },
+    {value: 'Go live', viewValue: 'Go live'},
     { value: 'Web meeting', viewValue: 'Web meeting' },
     { value: 'Kick-Off meeting', viewValue: ' Kick-Off meeting' },
-    { value: 'Internal meating', viewValue: 'Internal meating' },
-
+    { value: 'Internal meating', viewValue: 'Internal meating' }
   ];
   closeDialog() {
     this.dialogRef.close();
@@ -71,6 +87,11 @@ export class TouchPointComponent implements OnInit {
   addFiles() {
     this.file.nativeElement.click();
   }
+  changeSuccessFlow (type) {
+    if (type.value === 'Welcome call' || type.value === 'User training' || type.value === 'Implementation' || type.value === 'Go live') {
+      this.singleSuccessFlow = 'onboarding'
+    }
+  }
   createTouchPoint() {
     const formData: FormData = new FormData();
     formData.append('accountId', this.account.accountId);
@@ -79,6 +100,7 @@ export class TouchPointComponent implements OnInit {
     formData.append('touchPointDate', this.onDate(this.ttdate))
     formData.append('participants', this.participantsList);
     formData.append('touchPointSubject', this.ttSubject)
+    formData.append('successFlow', this.singleSuccessFlow)
     formData.append('adminEmail', sessionStorage.getItem('currentUsrEmal'))
     if (this.file.nativeElement.files.length > 0) {
       formData.append('file', this.file.nativeElement.files[0], this.file.nativeElement.files[0].name)
